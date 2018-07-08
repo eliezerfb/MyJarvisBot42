@@ -1,5 +1,5 @@
 from django.urls import path
-from myjarvisbot.hello.views import CommandReceiveView
+from myjarvisbot.jarvis.views import CommandReceiveView
 
 
 urlpatterns = [
