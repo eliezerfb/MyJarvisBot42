@@ -30,5 +30,6 @@ six==1.10.0
 telepot==12.7
 urllib3==1.23
 yarl==1.2.6
+django-test-without-migrations==0.6
 gunicorn
 psycopg2
