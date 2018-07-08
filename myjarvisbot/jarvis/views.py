@@ -1,6 +1,5 @@
 import json
 import telepot
-#from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.views.generic import View
@@ -16,9 +15,12 @@ def _display_help():
     return render_to_string('help.md')
 
 
-def _display_planetpy_feed():
-    return 'Feed'
-    #return render_to_string('feed.md', {'items': parse_planetpy_rss()})
+def _insert_item_lista(value):
+    pass
+
+# def _display_planetpy_feed():
+#     return 'Feed'
+
 
 class CommandReceiveView(View):
     def post(self, request, bot_token):
@@ -28,11 +30,10 @@ class CommandReceiveView(View):
         commands = {
             '/start': _display_help,
             'help': _display_help,
-            'feed': _display_planetpy_feed,
+            # 'feed': _display_planetpy_feed,
         }
 
         raw = request.body.decode('utf-8')
-    #    logger.info(raw)
 
         try:
             payload = json.loads(raw)

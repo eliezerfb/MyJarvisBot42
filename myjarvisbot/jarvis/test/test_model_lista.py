@@ -24,8 +24,11 @@ class ItensListaModelTest(TestCase):
         self.obj = ItensLista(produto='Tomate')
         self.obj.save()
 
+    def test_field_produto(self):
+        self.assertEqual(self.obj.produto, 'Tomate')
+
     def test_create(self):
         self.assertTrue(ItensLista.objects.exists())
 
     def test_quantidade(self):
-        self.assertEqual(self.obj.quantidade, 0)
+        self.assertEqual(self.obj.quantidade, '')
