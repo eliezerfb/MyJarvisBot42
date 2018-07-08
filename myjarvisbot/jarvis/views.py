@@ -22,8 +22,12 @@ def _insert_item_lista(command):
     obj = ItensLista(produto=produto[0], quantidade=quantidade)
     obj.save()
 
-# def _display_planetpy_feed():
-#     return 'Feed'
+def _display_lista():
+    itens = []
+    for item in ItensLista.objects.all():
+        itens.append(item.produto)
+    return ','.join(itens)
+    #return render_to_string('lista.md', {'items': ItensLista})
 
 
 class CommandReceiveView(View):
@@ -33,8 +37,8 @@ class CommandReceiveView(View):
 
         commands = {
             '/start': _display_help,
-            'help': _display_help
-            # 'feed': _display_planetpy_feed,
+            'help': _display_help,
+            'lista': _display_lista,
         }
 
         raw = request.body.decode('utf-8')
