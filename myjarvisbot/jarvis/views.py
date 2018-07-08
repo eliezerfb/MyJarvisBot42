@@ -13,7 +13,6 @@ from django.conf import settings
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
 
 def _display_help():
-    #return 'Help!'
     return render_to_string('help.md')
 
 
@@ -47,7 +46,8 @@ class CommandReceiveView(View):
             if func:
                 TelegramBot.sendMessage(chat_id, func(), parse_mode='Markdown')
             else:
-                TelegramBot.sendMessage(chat_id, 'I do not understand you, Sir!')
+                TelegramBot.sendMessage(chat_id,
+                                        'I do not understand you, Sir!')
 
         return JsonResponse({}, status=200)
 

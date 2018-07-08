@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myjarvisbot.core',
-    'myjarvisbot.hello'
+    'myjarvisbot.jarvis'
 ]
 
 MIDDLEWARE = [
