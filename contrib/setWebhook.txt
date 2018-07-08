@@ -1,0 +1,2 @@
+como setar o Webhook
+https://api.telegram.org/bot[token]]/setWebhook?url=https://myjarvisbot42.herokuapp.com/bot/[token]/
