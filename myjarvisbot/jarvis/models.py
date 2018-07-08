@@ -12,5 +12,4 @@ class Lista(models.Model):
 
 class ItensLista(models.Model):
     produto = models.CharField(max_length=20)
-    quantidade = models.BooleanField(default=False)
-#    quantidade = models.CharField(max_length=10, default='')
+    quantidade = models.CharField(max_length=10, default='')
