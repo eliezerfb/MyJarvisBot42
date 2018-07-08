@@ -31,3 +31,4 @@ telepot==12.7
 urllib3==1.23
 yarl==1.2.6
 gunicorn
+psycopg2
