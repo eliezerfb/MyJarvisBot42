@@ -1,7 +1,6 @@
 import json
 import telepot
 from django.shortcuts import render
-#from django.template.loader import render_to_string
 from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
@@ -13,8 +12,8 @@ from django.conf import settings
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
 
 def _display_help():
-    return 'Help!'
-    #return render_to_string('help.md')
+    #return 'Help!'
+    return render('help.md')
 
 
 def _display_planetpy_feed():
