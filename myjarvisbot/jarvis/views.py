@@ -50,9 +50,10 @@ class CommandReceiveView(View):
             func = commands.get(cmd.split()[0].lower())
             if func:
                 TelegramBot.sendMessage(chat_id, func(), parse_mode='Markdown')
-            elif cmd.split()[0].strip() == 'compra':
-                _insert_item_lista(cmd.split()[1:])
-                TelegramBot.sendMessage(chat_id, 'Ok, anotado!')
+            elif cmd.split()[0].strip().lower() == 'compra':
+                TelegramBot.sendMessage(chat_id, 'Ok')
+                insert_item_lista(cmd.split()[1:])
+                TelegramBot.sendMessage(chat_id, 'Anotado!')
             else:
                 TelegramBot.sendMessage(chat_id,
                                         'I do not understand you, Sir!')
