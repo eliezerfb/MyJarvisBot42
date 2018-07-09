@@ -16,4 +16,4 @@ class ItensLista(models.Model):
         verbose_name = 'item da lista'
 
     def __str__(self):
-        return self.produto
+        return self.produto.title()

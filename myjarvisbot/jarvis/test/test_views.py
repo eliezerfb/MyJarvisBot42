@@ -7,7 +7,7 @@ from myjarvisbot.jarvis.models import ItensLista
 
 class TestInsertItemListaComQuantide(TestCase):
     def setUp(self):
-        views._insert_item_lista(command='Tomate, 1kg')
+        views._insert_item_lista(command='tomate, 1kg')
 
     def test_insert_item_descricao(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Tomate')
@@ -18,7 +18,7 @@ class TestInsertItemListaComQuantide(TestCase):
 
 class TestInsertItemListaSemQuantide(TestCase):
     def setUp(self):
-        views._insert_item_lista(command='Tomate')
+        views._insert_item_lista(command='tomate')
 
     def test_insert_item_descricao(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Tomate')

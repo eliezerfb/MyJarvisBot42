@@ -6,11 +6,14 @@ from myjarvisbot.jarvis.models import ItensLista
 
 class ItensListaModelTest(TestCase):
     def setUp(self):
-        self.obj = ItensLista(produto='Tomate')
+        self.obj = ItensLista(produto='tomate')
         self.obj.save()
 
     def test_field_produto(self):
-        self.assertEqual(self.obj.produto, 'Tomate')
+        self.assertEqual(self.obj.produto, 'tomate')
+
+    def test_produto(self):
+        self.assertEqual(str(self.obj), 'Tomate')
 
     def test_create(self):
         self.assertTrue(ItensLista.objects.exists())

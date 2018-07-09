@@ -20,8 +20,7 @@ def _display_help():
 def _insert_item_lista(command):
     produto = command.split(',')
     quantidade = '' if len(produto) < 2 else produto[1].strip()
-    obj = ItensLista(produto=produto[0], quantidade=quantidade)
-    print(produto[0])
+    obj = ItensLista(produto=produto[0].title(), quantidade=quantidade)
     obj.save()
 
 
