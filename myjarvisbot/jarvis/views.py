@@ -23,11 +23,12 @@ def _insert_item_lista(command):
     obj.save()
 
 def _display_lista():
-    itens = []
-    for item in ItensLista.objects.all():
-        itens.append(item.produto)
-    return '\n'.join(itens)
-    #return render_to_string('lista.md', {'items': ItensLista})
+    return render_to_string('lista.md', {'items': ItensLista.objects.all()})
+    # itens = []
+    # for item in ItensLista.objects.all():
+    #     quantide = '' if item.quantidade == '' else ', {}'.format(item.quantidade)
+    #     itens.append('{}, {}'.format(item.produto, quantide))
+    # return '\n'.join(itens)
 
 
 class CommandReceiveView(View):

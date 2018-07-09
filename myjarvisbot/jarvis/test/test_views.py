@@ -5,7 +5,6 @@ from myjarvisbot.jarvis.models import ItensLista
 
 
 
-
 class TestInsertItemListaComQuantide(TestCase):
     def setUp(self):
         views._insert_item_lista(command='Tomate, 1kg')
@@ -26,3 +25,14 @@ class TestInsertItemListaSemQuantide(TestCase):
 
     def test_insert_item_quantidade(self):
         self.assertEqual(ItensLista.objects.all()[0].quantidade, '')
+
+
+class TestLista(TestCase):
+    def setUp(self):
+        self.obj = ItensLista.objects.bulk_create([
+            ItensLista(produto='tomate'),
+            ItensLista(produto='cebola')
+        ])
+
+    def test_retorno_lista(self):
+        self.assertEqual(views._display_lista(), '\ntomate \n\ncebola \n\n')
