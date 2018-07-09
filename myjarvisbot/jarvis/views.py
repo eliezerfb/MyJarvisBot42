@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.conf import settings
 
-from myjarvisbot.jarvis.models import Lista, ItensLista
+from myjarvisbot.jarvis.models import ItensLista
 
 
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)

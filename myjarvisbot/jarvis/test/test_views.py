@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from myjarvisbot.jarvis import views
-from myjarvisbot.jarvis.models import Lista, ItensLista
+from myjarvisbot.jarvis.models import ItensLista
 
 
 
