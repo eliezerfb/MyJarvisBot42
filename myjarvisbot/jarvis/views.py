@@ -56,7 +56,6 @@ class CommandReceiveView(View):
             elif cmd.split()[0].strip().lower()[:6] == 'compra':
                 TelegramBot.sendMessage(chat_id, 'Ok')
                 _insert_item_lista(''.join(cmd.split()[1:]))
-                #_insert_item_lista('Tomate, 1kg')
                 TelegramBot.sendMessage(chat_id, 'Anotado!')
             else:
                 TelegramBot.sendMessage(chat_id,

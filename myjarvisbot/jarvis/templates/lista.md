@@ -1,3 +1,3 @@
 {% for item in items %}
-{{ item.produto }} {{ item.quantidade }}
+{{item.produto}} {{item.quantidade}}
 {% endfor %}
