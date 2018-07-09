@@ -35,4 +35,4 @@ class TestLista(TestCase):
         ])
 
     def test_retorno_lista(self):
-        self.assertEqual(views._display_lista(), '\ntomate \n\ncebola \n\n')
+        self.assertEqual(views._display_lista(), '\ntomate \ncebola \n')

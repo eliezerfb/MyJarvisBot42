@@ -1,6 +1,7 @@
 import json
 import telepot
 from django.template.loader import render_to_string
+from django.shortcuts import render
 from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
@@ -22,13 +23,10 @@ def _insert_item_lista(command):
     obj = ItensLista(produto=produto[0], quantidade=quantidade)
     obj.save()
 
+
 def _display_lista():
-    return render_to_string('lista.md', {'items': ItensLista.objects.all()})
-    # itens = []
-    # for item in ItensLista.objects.all():
-    #     quantide = '' if item.quantidade == '' else ', {}'.format(item.quantidade)
-    #     itens.append('{}, {}'.format(item.produto, quantide))
-    # return '\n'.join(itens)
+    lista = render_to_string('lista.md', {'items': ItensLista.objects.all()})
+    return lista.replace('\n\n', '\n')
 
 
 class CommandReceiveView(View):
@@ -62,7 +60,7 @@ class CommandReceiveView(View):
                 TelegramBot.sendMessage(chat_id, 'Anotado!')
             else:
                 TelegramBot.sendMessage(chat_id,
-                                        'I do not understand you, Sir!')
+                                        'Desculpe! eu não entendi :(')
 
         return JsonResponse({}, status=200)
 
