@@ -26,7 +26,7 @@ def _display_lista():
     itens = []
     for item in ItensLista.objects.all():
         itens.append(item.produto)
-    return ','.join(itens)
+    return '\n'.join(itens)
     #return render_to_string('lista.md', {'items': ItensLista})
 
 
@@ -54,7 +54,7 @@ class CommandReceiveView(View):
             func = commands.get(cmd.split()[0].lower())
             if func:
                 TelegramBot.sendMessage(chat_id, func(), parse_mode='Markdown')
-            elif cmd.split()[0].strip().lower() == 'compra':
+            elif cmd.split()[0].strip().lower()[:6] == 'compra':
                 TelegramBot.sendMessage(chat_id, 'Ok')
                 _insert_item_lista(''.join(cmd.split()[1:]))
                 #_insert_item_lista('Tomate, 1kg')
