@@ -8,8 +8,8 @@ class ItensLista(models.Model):
     )
     ano = models.PositiveSmallIntegerField(default=datetime.today().year)
     produto = models.CharField(max_length=20)
-    quantidade = models.CharField(max_length=10, default='')
-    categoria = models.CharField(max_length=10, default='')
+    quantidade = models.CharField(max_length=10, default='', blank=True)
+    categoria = models.CharField(max_length=10, default='', blank=True)
 
     class Meta:
         verbose_name_plural = 'itens da lista'

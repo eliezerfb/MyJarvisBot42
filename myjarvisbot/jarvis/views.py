@@ -20,37 +20,33 @@ def _display_help():
 def _insert_item_lista(command):
     produto = command.split(',')
     quantidade = '' if len(produto) < 2 else produto[1].strip()
-    obj = ItensLista(produto=produto[0].title(), quantidade=quantidade)
+    obj = ItensLista(produto=produto[0].strip().title(),
+                     quantidade=quantidade.strip())
     obj.save()
 
 
 def _display_lista():
     itens_lista = ItensLista.objects.all()
     itens_lista = ItensLista.objects.order_by('categoria',)
-    lista = []
-    categoria_ant = ''
+    lista, categoria_ant = [], ''
+
     for item in itens_lista:
-        if item not in lista:
-            categoria = '\n\n*{}*'.format(item.categoria.upper())
-            if categoria != categoria_ant:
-                categoria_ant = categoria
-            else:
-                categoria = ''
+        categoria = '\n\n*{}*'.format(item.categoria.upper())
+        categoria = '' if categoria == categoria_ant else categoria
+        categoria_ant = categoria
 
-            if item.quantidade.strip() != '':
-                quantidade = ' {}'.format(item.quantidade.strip())
-            else:
-                quantidade = ''
+        quantidade = item.quantidade
+        if item.quantidade != '':
+            quantidade = ' {}'.format(item.quantidade.strip())
 
-            produto = item.produto.strip().title()
+        item_dict = dict(categoria=categoria,
+                         produto='\n - {}'.format(item.produto),
+                         quantidade=quantidade)
 
+        if item_dict not in lista:
+            lista.append(item_dict)
 
-            item_dict = dict(categoria=categoria,
-                             produto='\n - {}'.format(produto),
-                             quantidade=quantidade)
-        lista.append(item_dict)
-    lista = render_to_string('lista.md', {'items': lista})
-    return lista #lista.replace('\n\n', '\n')
+    return render_to_string('lista.md', {'items': lista})
 
 
 class CommandReceiveView(View):

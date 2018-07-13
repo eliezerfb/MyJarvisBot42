@@ -38,10 +38,10 @@ class TestInsertItemListaProdutoComEspaco(TestCase):
 class TestLista(TestCase):
     def setUp(self):
         self.obj = ItensLista.objects.bulk_create([
-            ItensLista(produto='tomate', categoria='horti'),
-            ItensLista(produto='cebola', categoria='horti'),
-            ItensLista(produto='carne moída', categoria='carnes',
-                       quantidade=2),
+            ItensLista(produto='Tomate', categoria='horti'),
+            ItensLista(produto='Cebola', categoria='horti'),
+            ItensLista(produto='Carne Moída', categoria='carnes',
+                       quantidade='2'),
         ])
 
     def test_retorno_lista(self):
