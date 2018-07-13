@@ -33,7 +33,10 @@ def _insert_item_lista(command):
 
 
 def _display_lista():
-    itens_lista = ItensLista.objects.all()
+    itens_lista = ItensLista.objects.filter(
+        semana=datetime.today().isocalendar()[1],
+        ano=datetime.today().year
+    )
     itens_lista = ItensLista.objects.order_by('categoria',)
     lista, categoria_ant = [], ''
 
