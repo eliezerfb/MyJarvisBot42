@@ -1,3 +1,3 @@
 {% for item in items %}
-*{{item.categoria}}*-{{item.produto}} {{item.quantidade}}
+{<b>{item.categoria}</b>}-{{item.produto}} {{item.quantidade}}
 {% endfor %}

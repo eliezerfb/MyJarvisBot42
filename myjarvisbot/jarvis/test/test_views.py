@@ -45,5 +45,5 @@ class TestLista(TestCase):
         ])
 
     def test_retorno_lista(self):
-        expected = '\n*CARNES*\ncarne moída 2\n*HORTI*\ntomate \ncebola \n'
+        expected = '\nCARNES\ncarne moída 2\nHORTI\ntomate \ncebola \n'
         self.assertEqual(views._display_lista(), expected)

@@ -31,7 +31,7 @@ def _display_lista():
     categoria_ant = ''
     for item in itens_lista:
         if item not in lista:
-            categoria = '*{}*\n\n'.format(item.categoria.upper())
+            categoria = '{}\n\n'.format(item.categoria.upper())
             if categoria != categoria_ant:
                 categoria_ant = categoria
             else:
