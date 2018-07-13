@@ -16,7 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.conf import settings
 
-from myjarvisbot.jarvis.models import ItensLista
+from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
 
 
 
@@ -26,6 +26,10 @@ def _display_help():
     return render_to_string('help.md')
 
 def _start(username, chat_id):
+    UsersTelegram.objects.update_or_create(
+        username=username,
+        defaults={'chat_id': chat_id}
+    )
     return _display_help()
 
 

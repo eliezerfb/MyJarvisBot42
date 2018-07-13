@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from myjarvisbot.jarvis import views
-from myjarvisbot.jarvis.models import ItensLista
+from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
 
 
 
@@ -60,3 +60,15 @@ class TestLista(TestCase):
     def test_retorno_lista(self):
         expected = '\n\n*CARNES*\n - Carne Moída 2\n\n*HORTI*\n - Tomate\n - Cebola\n - Batatinha\n'
         self.assertEqual(views._display_lista(), expected)
+
+
+class TestStart(TestCase):
+    def setUp(self):
+        views._start('eliezerfb', '123')
+        views._start('eliezerfb', '321')
+
+    def test_start_exists(self):
+        self.assertTrue(UsersTelegram.objects.exists())
+
+    def test_start_update(self):
+        self.assertEqual(UsersTelegram.objects.all()[0].chat_id, '321')
