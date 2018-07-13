@@ -68,6 +68,8 @@ class CommandReceiveView(View):
             '/start': _display_help,
             'help': _display_help,
             'lista': _display_lista,
+            'compra': _insert_item_lista,
+            'comprar': _insert_item_lista,
         }
 
         raw = request.body.decode('utf-8')
@@ -80,14 +82,17 @@ class CommandReceiveView(View):
             chat_id = payload['message']['chat']['id']
             cmd = payload['message'].get('text')  # command
 
+            msg = ' '.join(cmd.split()[1:])
             func = commands.get(cmd.split()[0].lower())
+
             if func:
-                TelegramBot.sendMessage(chat_id, func(), parse_mode='Markdown')
+                TelegramBot.sendMessage(chat_id,
+                                        func(msg), 
+                                        parse_mode='Markdown')
             elif cmd.split()[0].strip().lower()[:6] == 'compra':
                 TelegramBot.sendMessage(chat_id, 'Ok')
                 _insert_item_lista(' '.join(cmd.split()[1:]))
                 TelegramBot.sendMessage(chat_id, 'Anotado!')
-                TelegramBot.sendMessage(chat_id, 'chat_id = {}'.format(chat_id))
             else:
                 TelegramBot.sendMessage(chat_id,
                                         'Desculpe! eu não entendi :-(')
