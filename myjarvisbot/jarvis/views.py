@@ -87,6 +87,7 @@ class CommandReceiveView(View):
                 TelegramBot.sendMessage(chat_id, 'Ok')
                 _insert_item_lista(' '.join(cmd.split()[1:]))
                 TelegramBot.sendMessage(chat_id, 'Anotado!')
+                TelegramBot.sendMessage(chat_id, 'chat_id = {}'.format(chat_id))
             else:
                 TelegramBot.sendMessage(chat_id,
                                         'Desculpe! eu não entendi :-(')
