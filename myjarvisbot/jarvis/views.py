@@ -25,7 +25,23 @@ def _insert_item_lista(command):
 
 
 def _display_lista():
-    lista = render_to_string('lista.md', {'items': ItensLista.objects.all()})
+    itens_lista = ItensLista.objects.all()
+    itens_lista = ItensLista.objects.order_by('categoria',)
+    lista = []
+    categoria_ant = ''
+    for item in itens_lista:
+        if item not in lista:
+            categoria = '*{}*\n'.format(item.categoria.upper())
+            if categoria != categoria_ant:
+                categoria_ant = categoria
+            else:
+                categoria = ''
+
+            item_dict = dict(categoria=categoria,
+                             produto=item.produto,
+                             quantidade=item.quantidade)
+        lista.append(item_dict)
+    lista = render_to_string('lista.md', {'items': lista})
     return lista.replace('\n\n', '\n')
 
 

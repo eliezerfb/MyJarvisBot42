@@ -38,11 +38,12 @@ class TestInsertItemListaProdutoComEspaco(TestCase):
 class TestLista(TestCase):
     def setUp(self):
         self.obj = ItensLista.objects.bulk_create([
-            ItensLista(produto='tomate'),
-            ItensLista(produto='cebola'),
-            ItensLista(produto='carne moída', quantidade=2),
+            ItensLista(produto='tomate', categoria='horti'),
+            ItensLista(produto='cebola', categoria='horti'),
+            ItensLista(produto='carne moída', categoria='carnes',
+                       quantidade=2),
         ])
 
     def test_retorno_lista(self):
-        expected = '\ntomate \ncebola \ncarne moída 2\n'
+        expected = '\n*CARNES*\ncarne moída 2\n*HORTI*\ntomate \ncebola \n'
         self.assertEqual(views._display_lista(), expected)
