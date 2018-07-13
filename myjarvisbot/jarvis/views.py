@@ -44,7 +44,7 @@ def _display_lista():
 
 
             item_dict = dict(categoria=categoria,
-                             produto='\n*{}'.format(item.produto.strip()),
+                             produto='\n -{}'.format(item.produto.strip()),
                              quantidade=quantidade)
         lista.append(item_dict)
     lista = render_to_string('lista.md', {'items': lista})
