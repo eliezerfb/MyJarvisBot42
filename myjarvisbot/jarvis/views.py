@@ -43,7 +43,8 @@ def _display_lista():
     for item in itens_lista:
         categoria = '\n\n*{}*'.format(item.categoria.upper())
         categoria = '' if categoria == categoria_ant else categoria
-        categoria_ant = categoria
+        if categoria != '':
+            categoria_ant = categoria
 
         quantidade = item.quantidade
         if item.quantidade != '':

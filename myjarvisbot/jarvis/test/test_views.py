@@ -52,10 +52,11 @@ class TestLista(TestCase):
         self.obj = ItensLista.objects.bulk_create([
             ItensLista(produto='Tomate', categoria='horti'),
             ItensLista(produto='Cebola', categoria='horti'),
+            ItensLista(produto='Batatinha', categoria='horti'),
             ItensLista(produto='Carne Moída', categoria='carnes',
                        quantidade='2'),
         ])
 
     def test_retorno_lista(self):
-        expected = '\n\n*CARNES*\n - Carne Moída 2\n\n*HORTI*\n - Tomate\n - Cebola\n'
+        expected = '\n\n*CARNES*\n - Carne Moída 2\n\n*HORTI*\n - Tomate\n - Cebola\n - Batatinha\n'
         self.assertEqual(views._display_lista(), expected)
