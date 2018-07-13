@@ -1,6 +1,13 @@
+"""
+Baseado em:
+https://khashtamov.com/en/how-to-create-a-telegram-bot-using-python/
+"""
+
 import json
 import telepot
 from datetime import datetime
+from functools import partial
+
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
@@ -12,14 +19,15 @@ from django.conf import settings
 from myjarvisbot.jarvis.models import ItensLista
 
 
+
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
 
 def _display_help():
     return render_to_string('help.md')
 
 
-def _insert_item_lista(command):
-    produto = command.split(',')
+def _insert_item_lista(data):
+    produto = data.split(',')
     quantidade = '' if len(produto) < 2 else produto[1].strip()
     semana = datetime.today().isocalendar()[1]
     ano = datetime.today().year
@@ -30,6 +38,7 @@ def _insert_item_lista(command):
         ano=ano,
         defaults={'quantidade': quantidade},
     )
+    return 'Ok, anotado!'
 
 
 def _display_lista():
@@ -64,13 +73,6 @@ class CommandReceiveView(View):
         if bot_token != settings.TELEGRAM_BOT_TOKEN:
             return HttpResponseForbidden('Invalid token')
 
-        commands = {
-            '/start': _display_help,
-            'help': _display_help,
-            'lista': _display_lista,
-            # 'compra': _insert_item_lista,
-            # 'comprar': _insert_item_lista,
-        }
 
         raw = request.body.decode('utf-8')
 
@@ -85,12 +87,21 @@ class CommandReceiveView(View):
             msg = ' '.join(cmd.split()[1:])
             func = commands.get(cmd.split()[0].lower())
 
+            commands = {
+                '/start': _display_help,
+                'help': _display_help,
+                'lista': _display_lista,
+                'compra': partial(_insert_item_lista, data=msg),
+                'comprar': partial(_insert_item_lista, data=msg),
+            }
+
+
             if func:
                 TelegramBot.sendMessage(chat_id, func(), parse_mode='Markdown')
-            elif cmd.split()[0].strip().lower()[:6] == 'compra':
-                TelegramBot.sendMessage(chat_id, 'Ok')
-                _insert_item_lista(msg)
-                TelegramBot.sendMessage(chat_id, 'Anotado!')
+            # elif cmd.split()[0].strip().lower()[:6] == 'compra':
+            #     TelegramBot.sendMessage(chat_id, 'Ok')
+            #     _insert_item_lista(msg)
+            #     TelegramBot.sendMessage(chat_id, 'Anotado!')
             else:
                 TelegramBot.sendMessage(chat_id,
                                         'Desculpe! eu não entendi :-(')
