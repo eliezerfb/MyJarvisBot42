@@ -1,5 +1,6 @@
 import json
 import telepot
+from datetime import datetime
 from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
@@ -20,9 +21,15 @@ def _display_help():
 def _insert_item_lista(command):
     produto = command.split(',')
     quantidade = '' if len(produto) < 2 else produto[1].strip()
-    obj = ItensLista(produto=produto[0].strip().title(),
-                     quantidade=quantidade.strip())
-    obj.save()
+    semana = datetime.today().isocalendar()[1]
+    ano = datetime.today().year
+
+    ItensLista.objects.update_or_create(
+        produto=produto[0].strip().title(),
+        semana=semana,
+        ano=ano,
+        defaults={'quantidade': quantidade},
+    )
 
 
 def _display_lista():
@@ -43,8 +50,7 @@ def _display_lista():
                          produto='\n - {}'.format(item.produto),
                          quantidade=quantidade)
 
-        if item_dict not in lista:
-            lista.append(item_dict)
+        lista.append(item_dict)
 
     return render_to_string('lista.md', {'items': lista})
 

@@ -35,6 +35,18 @@ class TestInsertItemListaProdutoComEspaco(TestCase):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Coco Ralado')
 
 
+class TestInsertProdutosRepetidos(TestCase):
+    def setUp(self):
+        views._insert_item_lista(command='Linguicinha, 1')
+        views._insert_item_lista(command='Linguicinha, 2')
+
+    def test_se_existe_apenas_1(self):
+        self.assertEqual(len(ItensLista.objects.all()), 1)
+
+    def test_se_atualizou_para_ultimo(self):
+        self.assertEqual(ItensLista.objects.all()[0].quantidade, '2')
+
+
 class TestLista(TestCase):
     def setUp(self):
         self.obj = ItensLista.objects.bulk_create([
