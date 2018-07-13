@@ -7,7 +7,7 @@ from myjarvisbot.jarvis.models import ItensLista
 
 class TestInsertItemListaComQuantide(TestCase):
     def setUp(self):
-        views._insert_item_lista(command='tomate, 1kg')
+        views._insert_item_lista(data='tomate, 1kg')
 
     def test_insert_item_descricao(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Tomate')
@@ -18,7 +18,7 @@ class TestInsertItemListaComQuantide(TestCase):
 
 class TestInsertItemListaSemQuantide(TestCase):
     def setUp(self):
-        views._insert_item_lista(command='tomate')
+        views._insert_item_lista(data='tomate')
 
     def test_insert_item_descricao(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Tomate')
@@ -29,7 +29,7 @@ class TestInsertItemListaSemQuantide(TestCase):
 
 class TestInsertItemListaProdutoComEspaco(TestCase):
     def setUp(self):
-        views._insert_item_lista(command='Coco Ralado')
+        views._insert_item_lista(data='Coco Ralado')
 
     def test_insert_item_descricao_com_espaco(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Coco Ralado')
@@ -37,8 +37,8 @@ class TestInsertItemListaProdutoComEspaco(TestCase):
 
 class TestInsertProdutosRepetidos(TestCase):
     def setUp(self):
-        views._insert_item_lista(command='Linguicinha, 1')
-        views._insert_item_lista(command='Linguicinha, 2')
+        views._insert_item_lista(data='Linguicinha, 1')
+        views._insert_item_lista(data='Linguicinha, 2')
 
     def test_se_existe_apenas_1(self):
         self.assertEqual(len(ItensLista.objects.all()), 1)
