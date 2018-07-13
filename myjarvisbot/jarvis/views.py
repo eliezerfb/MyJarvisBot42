@@ -85,7 +85,7 @@ class CommandReceiveView(View):
                 TelegramBot.sendMessage(chat_id, 'Anotado!')
             else:
                 TelegramBot.sendMessage(chat_id,
-                                        'Desculpe! eu não entendi :(')
+                                        'Desculpe! eu não entendi :-(')
 
         return JsonResponse({}, status=200)
 
