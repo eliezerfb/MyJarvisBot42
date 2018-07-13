@@ -85,7 +85,6 @@ class CommandReceiveView(View):
             cmd = payload['message'].get('text')  # command
 
             msg = ' '.join(cmd.split()[1:])
-            func = commands.get(cmd.split()[0].lower())
 
             commands = {
                 '/start': _display_help,
@@ -95,6 +94,7 @@ class CommandReceiveView(View):
                 'comprar': partial(_insert_item_lista, data=msg),
             }
 
+            func = commands.get(cmd.split()[0].lower())
 
             if func:
                 TelegramBot.sendMessage(chat_id, func(), parse_mode='Markdown')
