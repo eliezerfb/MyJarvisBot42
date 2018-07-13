@@ -31,18 +31,24 @@ def _display_lista():
     categoria_ant = ''
     for item in itens_lista:
         if item not in lista:
-            categoria = '{}\n\n'.format(item.categoria.upper())
+            categoria = '\n\n*{}*'.format(item.categoria.upper())
             if categoria != categoria_ant:
                 categoria_ant = categoria
             else:
                 categoria = ''
 
+            if item.quantidade.strip() != '':
+                quantidade = ' {}'.format(item.quantidade.strip())
+            else:
+                quantidade = ''
+
+
             item_dict = dict(categoria=categoria,
-                             produto=item.produto,
-                             quantidade=item.quantidade)
+                             produto='\n*{}'.format(item.produto.strip()),
+                             quantidade=quantidade)
         lista.append(item_dict)
     lista = render_to_string('lista.md', {'items': lista})
-    return lista.replace('\n\n', '\n')
+    return lista #lista.replace('\n\n', '\n')
 
 
 class CommandReceiveView(View):
