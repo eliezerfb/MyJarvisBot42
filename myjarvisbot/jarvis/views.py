@@ -36,8 +36,9 @@ def _start(username, chat_id):
 def _insert_item_lista(data):
     produto = data.split(',')
     quantidade = '' if len(produto) < 2 else produto[1].strip()
-    semana = datetime.today().isocalendar()[1]
-    ano = datetime.today().year
+    today = datetime.today()
+    semana = today.strftime('%U')
+    ano = today.strftime('%Y')
 
     ItensLista.objects.update_or_create(
         produto=produto[0].strip().title(),
