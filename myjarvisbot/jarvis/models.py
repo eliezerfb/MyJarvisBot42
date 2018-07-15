@@ -7,7 +7,7 @@ class ItensLista(models.Model):
         default=datetime.today().isocalendar()[1]
     )
     ano = models.PositiveSmallIntegerField(default=datetime.today().year)
-    produto = models.CharField(max_length=20)
+    produto = models.CharField(max_length=50)
     quantidade = models.CharField(max_length=10, default='', blank=True)
     categoria = models.CharField(max_length=10, default='', blank=True)
 
