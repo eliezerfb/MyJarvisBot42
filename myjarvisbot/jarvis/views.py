@@ -50,9 +50,12 @@ def _insert_item_lista(data):
 
 
 def _display_lista():
+    today = datetime.today()
+    semana = today.strftime('%U')
+    ano = today.strftime('%Y')
     itens_lista = ItensLista.objects.filter(
-        semana=datetime.today().isocalendar()[1],
-        ano=datetime.today().year
+        semana=semana,
+        ano=ano
     )
     itens_lista = ItensLista.objects.order_by('categoria',)
     lista, categoria_ant = [], ''
