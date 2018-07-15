@@ -56,8 +56,7 @@ def _display_lista():
     itens_lista = ItensLista.objects.filter(
         semana=semana,
         ano=ano
-    )
-    itens_lista = ItensLista.objects.order_by('categoria',)
+    ).order_by('categoria',)
     lista, categoria_ant = [], ''
 
     for item in itens_lista:
