@@ -112,7 +112,7 @@ class CommandReceiveView(View):
                 TelegramBot.sendMessage(chat_id, func(), parse_mode='Markdown')
             else:
                 TelegramBot.sendMessage(chat_id,
-                                        'Desculpe! eu não entendi \xF0\x9F\x98\x9E')
+                                        'Desculpe! eu não entendi :-(')
 
         return JsonResponse({}, status=200)
 
