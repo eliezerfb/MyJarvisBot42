@@ -78,6 +78,7 @@ def _display_lista():
     return render_to_string('lista.md', {'items': lista})
 
 
+
 class CommandReceiveView(View):
     def post(self, request, bot_token):
         if bot_token != settings.TELEGRAM_BOT_TOKEN:
@@ -92,7 +93,7 @@ class CommandReceiveView(View):
             return HttpResponseBadRequest('Invalid request body')
         else:
             chat_id = payload['message']['chat']['id']
-            username = payload['message']['from']['username']
+            username = payload['message']['chat']['username']
             cmd = payload['message'].get('text')  # command
 
             msg = ' '.join(cmd.split()[1:])
