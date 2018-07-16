@@ -92,6 +92,7 @@ class CommandReceiveView(View):
         except ValueError:
             return HttpResponseBadRequest('Invalid request body')
         else:
+            print(payload)
             chat_id = payload['message']['chat']['id']
             username = payload['message']['chat']['username']
             cmd = payload['message'].get('text')  # command
