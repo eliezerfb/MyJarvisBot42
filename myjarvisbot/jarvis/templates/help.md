@@ -1,4 +1,4 @@
-:-) Olá!
+\xF0\x9F\x98\x83 Olá!
 
 Meu nome é Jarvis e estou a sua disposição.
 
