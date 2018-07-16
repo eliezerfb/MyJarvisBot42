@@ -13,14 +13,14 @@ class ItensLista(models.Model):
     BEBIDAS = 80
     OUTROS = 90
     SECOES = (
-        (10, 'Cereais'),
-        (20, 'Mercearia'),
-        (30, 'Frios'),
-        (40, 'Hortifruti'),
-        (50, 'Carnes'),
-        (60, 'Higiene'),
-        (70, 'Limpeza'),
-        (80, 'Bebidas'),
+        (CEREAIS, 'Cereais'),
+        (MERCEARIA, 'Mercearia'),
+        (FRIOS, 'Frios'),
+        (HORTIFRUTI, 'Hortifruti'),
+        (CARNES, 'Carnes'),
+        (HIGIENE, 'Higiene'),
+        (LIMPEZA, 'Limpeza'),
+        (BEBIDAS, 'Bebidas'),
         (OUTROS, 'Outros')
     )
     semana = models.PositiveSmallIntegerField(
