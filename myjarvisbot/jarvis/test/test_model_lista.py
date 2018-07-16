@@ -22,7 +22,7 @@ class ItensListaModelTest(TestCase):
         self.assertEqual(self.obj.quantidade, '')
 
     def test_field_semana(self):
-        self.assertEqual(self.obj.semana, datetime.today().isocalendar()[1])
+        self.assertEqual(self.obj.semana, int(datetime.today().strftime('%U')))
 
     def test_field_ano(self):
         self.assertEqual(self.obj.ano, datetime.today().year)

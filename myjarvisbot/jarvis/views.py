@@ -39,12 +39,21 @@ def _insert_item_lista(data):
     today = datetime.today()
     semana = today.strftime('%U')
     ano = today.strftime('%Y')
+    secao = ItensLista.OUTROS
+
+    produto = produto[0].strip().title()
+
+    ultimo_item_lista = ItensLista.objects.all().filter(produto=produto)
+    ultimo_item_lista = ultimo_item_lista.order_by('-ano', '-semana')
+    if ultimo_item_lista:
+        secao = ultimo_item_lista.first().secao
 
     ItensLista.objects.update_or_create(
-        produto=produto[0].strip().title(),
+        produto=produto,
         semana=semana,
         ano=ano,
-        defaults={'quantidade': quantidade},
+        defaults={'quantidade': quantidade,
+                  'secao': secao},
     )
     return 'Ok, anotado!'
 

@@ -72,3 +72,17 @@ class TestStart(TestCase):
 
     def test_start_update(self):
         self.assertEqual(UsersTelegram.objects.all()[0].chat_id, '321')
+
+
+class TestBuscaUltimaSecao(TestCase):
+    def test_ultima_secao(self):
+        """Testa se o item inserido utiliza a última seção utilizada"""
+        self.obj = ItensLista.objects.bulk_create([
+            ItensLista(produto='Tomate', secao=ItensLista.CARNES,
+                       ano=2018, semana=1),
+            ItensLista(produto='Tomate', secao=ItensLista.HORTIFRUTI,
+                       ano=2018, semana=2),
+        ])
+        views._insert_item_lista(data='Tomate')
+        self.assertEqual(ItensLista.objects.all()[1].secao,
+                         ItensLista.objects.all()[2].secao)
