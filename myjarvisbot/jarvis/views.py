@@ -25,9 +25,9 @@ TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
 def _display_help():
     return render_to_string('help.md')
 
-def _start(username, chat_id):
+def _start(name, chat_id):
     UsersTelegram.objects.update_or_create(
-        username=username,
+        name=name,
         defaults={'chat_id': chat_id}
     )
     return _display_help()
@@ -94,13 +94,13 @@ class CommandReceiveView(View):
         else:
             print(payload)
             chat_id = payload['message']['chat']['id']
-            username = payload['message']['chat']['first_name']
+            name = payload['message']['chat']['first_name']
             cmd = payload['message'].get('text')  # command
 
             msg = ' '.join(cmd.split()[1:])
 
             commands = {
-                '/start': partial(_start, username=username, chat_id=chat_id),
+                '/start': partial(_start, name=name, chat_id=chat_id),
                 'help': _display_help,
                 'lista': _display_lista,
                 'compra': partial(_insert_item_lista, data=msg),

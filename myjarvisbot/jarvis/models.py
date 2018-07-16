@@ -42,8 +42,8 @@ class ItensLista(models.Model):
 
 
 class UsersTelegram(models.Model):
-    username = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
     chat_id = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.username
+        return self.name
