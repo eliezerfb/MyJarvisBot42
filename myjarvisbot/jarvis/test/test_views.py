@@ -50,15 +50,15 @@ class TestInsertProdutosRepetidos(TestCase):
 class TestLista(TestCase):
     def setUp(self):
         self.obj = ItensLista.objects.bulk_create([
-            ItensLista(produto='Tomate', categoria='horti'),
-            ItensLista(produto='Cebola', categoria='horti'),
-            ItensLista(produto='Batatinha', categoria='horti'),
-            ItensLista(produto='Carne Moída', categoria='carnes',
+            ItensLista(produto='Tomate', secao=ItensLista.HORTIFRUTI),
+            ItensLista(produto='Cebola', secao=ItensLista.HORTIFRUTI),
+            ItensLista(produto='Batatinha', secao=ItensLista.HORTIFRUTI),
+            ItensLista(produto='Carne Moida', secao=ItensLista.CARNES,
                        quantidade='2'),
         ])
 
     def test_retorno_lista(self):
-        expected = '\n\n*CARNES*\n - Carne Moída 2\n\n*HORTI*\n - Tomate\n - Cebola\n - Batatinha\n'
+        expected = '\n\n*HORTIFRUTI*\n - Tomate\n - Cebola\n - Batatinha\n\n*CARNES*\n - Carne Moida 2\n'
         self.assertEqual(views._display_lista(), expected)
 
 

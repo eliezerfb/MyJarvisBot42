@@ -3,6 +3,15 @@ from django.db import models
 
 
 class ItensLista(models.Model):
+    CEREAIS = 10
+    MERCEARIA = 20
+    FRIOS = 30
+    HORTIFRUTI = 40
+    CARNES = 50
+    HIGIENE = 60
+    LIMPEZA = 70
+    BEBIDAS = 80
+    OUTROS = 90
     SECOES = (
         (10, 'Cereais'),
         (20, 'Mercearia'),
@@ -12,7 +21,7 @@ class ItensLista(models.Model):
         (60, 'Higiene'),
         (70, 'Limpeza'),
         (80, 'Bebidas'),
-        (90, 'Outros')
+        (OUTROS, 'Outros')
     )
     semana = models.PositiveSmallIntegerField(
         default=int(datetime.today().strftime('%U'))
@@ -20,9 +29,8 @@ class ItensLista(models.Model):
     ano = models.PositiveSmallIntegerField(default=datetime.today().year)
     produto = models.CharField(max_length=50)
     quantidade = models.CharField(max_length=10, default='', blank=True)
-    categoria = models.CharField(max_length=10, default='', blank=True)
     secao = models.PositiveSmallIntegerField(
-        'seção', choices=SECOES, blank=True, default=90
+        'seção', choices=SECOES, blank=True, default=OUTROS
     )
 
     class Meta:

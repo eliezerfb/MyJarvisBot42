@@ -56,20 +56,20 @@ def _display_lista():
     itens_lista = ItensLista.objects.filter(
         semana=semana,
         ano=ano
-    ).order_by('categoria',)
-    lista, categoria_ant = [], ''
+    ).order_by('secao',)
+    lista, secao_ant = [], ''
 
     for item in itens_lista:
-        categoria = '\n\n*{}*'.format(item.categoria.upper())
-        categoria = '' if categoria == categoria_ant else categoria
-        if categoria != '':
-            categoria_ant = categoria
+        secao = '\n\n*{}*'.format(item.get_secao_display().upper())
+        secao = '' if secao == secao_ant else secao
+        if secao != '':
+            secao_ant = secao
 
         quantidade = item.quantidade
         if item.quantidade != '':
             quantidade = ' {}'.format(item.quantidade.strip())
 
-        item_dict = dict(categoria=categoria,
+        item_dict = dict(secao=secao,
                          produto='\n - {}'.format(item.produto),
                          quantidade=quantidade)
 
