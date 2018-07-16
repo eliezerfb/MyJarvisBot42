@@ -42,7 +42,7 @@ class ItensLista(models.Model):
 
 
 class UsersTelegram(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, blank=True)
     chat_id = models.CharField(max_length=10)
 
     def __str__(self):
