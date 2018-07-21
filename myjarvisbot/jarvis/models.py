@@ -6,6 +6,7 @@ class ItensLista(models.Model):
     CEREAIS = 10
     MERCEARIA = 20
     FRIOS = 30
+    PADARIA = 35
     HORTIFRUTI = 40
     CARNES = 50
     HIGIENE = 60
@@ -16,6 +17,7 @@ class ItensLista(models.Model):
         (CEREAIS, 'Cereais'),
         (MERCEARIA, 'Mercearia'),
         (FRIOS, 'Frios'),
+        (PADARIA, 'Padaria'),
         (HORTIFRUTI, 'Hortifruti'),
         (CARNES, 'Carnes'),
         (HIGIENE, 'Higiene'),
