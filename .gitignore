@@ -18,3 +18,4 @@ octantis/staticfiles/
 # End of https://www.gitignore.io/api/django
 
 .env
+.idea/
