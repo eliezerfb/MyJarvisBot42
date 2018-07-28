@@ -4,7 +4,6 @@ from myjarvisbot.jarvis import views
 from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
 
 
-
 class TestInsertItemListaComQuantide(TestCase):
     def setUp(self):
         views._insert_item_lista(data='tomate, 1kg')

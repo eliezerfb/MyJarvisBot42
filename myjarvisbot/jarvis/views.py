@@ -4,21 +4,18 @@ https://khashtamov.com/en/how-to-create-a-telegram-bot-using-python/
 """
 
 import json
-import telepot
 from datetime import datetime
 from functools import partial
 
-from django.template.loader import render_to_string
-from django.shortcuts import render
-from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
-from django.views.generic import View
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+import telepot
 from django.conf import settings
+from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
+from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 
 from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
-
-
 
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
 

@@ -3,7 +3,6 @@ from django.test import TestCase
 from myjarvisbot.jarvis.models import UsersTelegram
 
 
-
 class TestModelUsersTelegram(TestCase):
     def setUp(self):
         self.obj = UsersTelegram(name='Eliézer', chat_id='123')
