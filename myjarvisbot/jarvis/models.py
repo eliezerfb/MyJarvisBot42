@@ -2,6 +2,8 @@ from datetime import datetime
 
 from django.db import models
 
+from myjarvisbot.jarvis.managers import ListaDaSemanaManager
+
 
 class ItensLista(models.Model):
     CEREAIS = 10
@@ -35,6 +37,8 @@ class ItensLista(models.Model):
     secao = models.PositiveSmallIntegerField(
         'seção', choices=SECOES, blank=True, default=OUTROS
     )
+
+    objects = ListaDaSemanaManager()
 
     class Meta:
         verbose_name_plural = 'itens da lista'

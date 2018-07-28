@@ -58,13 +58,7 @@ def _insert_item_lista(data):
 
 
 def _display_lista():
-    today = datetime.today()
-    semana = today.strftime('%U')
-    ano = today.strftime('%Y')
-    itens_lista = ItensLista.objects.filter(
-        semana=semana,
-        ano=ano
-    ).order_by('secao', 'produto')
+    itens_lista = ItensLista.objects.lista_da_semana()
     lista, secao_ant = [], ''
 
     for item in itens_lista:
@@ -86,12 +80,10 @@ def _display_lista():
     return render_to_string('lista.md', {'items': lista})
 
 
-
 class CommandReceiveView(View):
     def post(self, request, bot_token):
         if bot_token != settings.TELEGRAM_BOT_TOKEN:
             return HttpResponseForbidden('Invalid token')
-
 
         raw = request.body.decode('utf-8')
 

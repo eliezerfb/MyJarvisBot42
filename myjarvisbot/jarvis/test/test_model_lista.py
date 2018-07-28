@@ -3,6 +3,7 @@ from datetime import datetime
 from django.test import TestCase
 
 from myjarvisbot.jarvis.models import ItensLista
+from myjarvisbot.jarvis.managers import ListaDaSemanaManager
 
 
 class ItensListaModelTest(TestCase):
@@ -27,3 +28,6 @@ class ItensListaModelTest(TestCase):
 
     def test_field_ano(self):
         self.assertEqual(self.obj.ano, datetime.today().year)
+
+    def test_manager(self):
+        self.assertIsInstance(ItensLista.objects, ListaDaSemanaManager)
