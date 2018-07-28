@@ -52,12 +52,11 @@ class TestLista(TestCase):
             ItensLista(produto='Tomate', secao=ItensLista.HORTIFRUTI),
             ItensLista(produto='Cebola', secao=ItensLista.HORTIFRUTI),
             ItensLista(produto='Batatinha', secao=ItensLista.HORTIFRUTI),
-            ItensLista(produto='Carne Moida', secao=ItensLista.CARNES,
-                       quantidade='2'),
+            ItensLista(produto='Carne Moida', secao=ItensLista.CARNES, quantidade='2'),
         ])
 
-    def test_retorno_lista(self):
-        expected = '\n\n*HORTIFRUTI*\n - Tomate\n - Cebola\n - Batatinha\n\n*CARNES*\n - Carne Moida 2\n'
+    def test_retorno_lista_ordem(self):
+        expected = '\n\n*HORTIFRUTI*\n - Batatinha\n - Cebola\n - Tomate\n\n*CARNES*\n - Carne Moida 2\n'
         self.assertEqual(views._display_lista(), expected)
 
 

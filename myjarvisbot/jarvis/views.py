@@ -64,7 +64,7 @@ def _display_lista():
     itens_lista = ItensLista.objects.filter(
         semana=semana,
         ano=ano
-    ).order_by('secao',)
+    ).order_by('secao', 'produto')
     lista, secao_ant = [], ''
 
     for item in itens_lista:
