@@ -4,7 +4,6 @@ https://khashtamov.com/en/how-to-create-a-telegram-bot-using-python/
 """
 
 import json
-from datetime import datetime
 from functools import partial
 
 import telepot
@@ -15,7 +14,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
+from myjarvisbot.jarvis.mixins import ListaMixin
 from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
+from myjarvisbot.utils.semana_ano import get_semana_ano
 
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
 
@@ -35,9 +36,7 @@ def _start(name, chat_id):
 def _insert_item_lista(data):
     produto = data.split(',')
     quantidade = '' if len(produto) < 2 else produto[1].strip()
-    today = datetime.today()
-    semana = today.strftime('%U')
-    ano = today.strftime('%Y')
+    semana, ano = get_semana_ano()
     secao = ItensLista.OUTROS
 
     produto = produto[0].strip().title()
@@ -57,30 +56,7 @@ def _insert_item_lista(data):
     return 'Ok, anotado!'
 
 
-def _display_lista():
-    itens_lista = ItensLista.objects.lista_da_semana()
-    lista, secao_ant = [], ''
-
-    for item in itens_lista:
-        secao = '\n\n*{}*'.format(item.get_secao_display().upper())
-        secao = '' if secao == secao_ant else secao
-        if secao != '':
-            secao_ant = secao
-
-        quantidade = item.quantidade
-        if item.quantidade != '':
-            quantidade = ' {}'.format(item.quantidade.strip())
-
-        item_dict = dict(secao=secao,
-                         produto='\n - {}'.format(item.produto),
-                         quantidade=quantidade)
-
-        lista.append(item_dict)
-
-    return render_to_string('lista.md', {'items': lista})
-
-
-class CommandReceiveView(View):
+class CommandReceiveView(View, ListaMixin):
     def post(self, request, bot_token):
         if bot_token != settings.TELEGRAM_BOT_TOKEN:
             return HttpResponseForbidden('Invalid token')
@@ -102,7 +78,7 @@ class CommandReceiveView(View):
             commands = {
                 '/start': partial(_start, name=name, chat_id=chat_id),
                 'help': _display_help,
-                'lista': _display_lista,
+                'lista': display_lista,
                 'compra': partial(_insert_item_lista, data=msg),
                 'comprar': partial(_insert_item_lista, data=msg),
             }

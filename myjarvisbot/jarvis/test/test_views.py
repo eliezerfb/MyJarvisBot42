@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from myjarvisbot.jarvis import views
+from myjarvisbot.jarvis.mixins import ListaMixin
 from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
 
 
@@ -57,7 +58,7 @@ class TestLista(TestCase):
 
     def test_retorno_lista_ordem(self):
         expected = '\n\n*HORTIFRUTI*\n - Batatinha\n - Cebola\n - Tomate\n\n*CARNES*\n - Carne Moida 2\n'
-        self.assertEqual(views._display_lista(), expected)
+        self.assertEqual(ListaMixin.display_lista(), expected)
 
 
 class TestStart(TestCase):

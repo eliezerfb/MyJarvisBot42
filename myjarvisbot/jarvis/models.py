@@ -3,6 +3,9 @@ from datetime import datetime
 from django.db import models
 
 from myjarvisbot.jarvis.managers import ListaDaSemanaManager
+from myjarvisbot.utils.semana_ano import get_semana_ano
+
+SEMANA, ANO = get_semana_ano()
 
 
 class ItensLista(models.Model):
@@ -28,10 +31,8 @@ class ItensLista(models.Model):
         (BEBIDAS, 'Bebidas'),
         (OUTROS, 'Outros')
     )
-    semana = models.PositiveSmallIntegerField(
-        default=int(datetime.today().strftime('%U'))
-    )
-    ano = models.PositiveSmallIntegerField(default=datetime.today().year)
+    semana = models.PositiveSmallIntegerField(default=SEMANA)
+    ano = models.PositiveSmallIntegerField(default=ANO)
     produto = models.CharField(max_length=50)
     quantidade = models.CharField(max_length=10, default='', blank=True)
     secao = models.PositiveSmallIntegerField(
