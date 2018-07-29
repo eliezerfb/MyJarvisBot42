@@ -40,7 +40,7 @@ class ListaComprasMixin:
 
         return render_to_string('lista.md', {'items': lista})
 
-    def insert_item_lista(data):
+    def insert_item_lista(self, data):
         produto = data.split(',')
         quantidade = '' if len(produto) < 2 else produto[1].strip()
         semana, ano = get_semana_ano()
