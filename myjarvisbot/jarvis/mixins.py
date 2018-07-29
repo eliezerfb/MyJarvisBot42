@@ -9,7 +9,7 @@ class ListaMixin:
         lista, secao_ant = [], ''
 
         for item in itens_lista:
-            secao = '\n\n*{}*'.format(item.get_secao_display().upper())
+            secao = '\n\n*{}*'.format(item.get_secao_display())
             secao = '' if secao == secao_ant else secao
             if secao != '':
                 secao_ant = secao

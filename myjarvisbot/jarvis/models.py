@@ -20,16 +20,16 @@ class ItensLista(models.Model):
     BEBIDAS = 80
     OUTROS = 90
     SECOES = (
-        (CEREAIS, 'Cereais'),
-        (MERCEARIA, 'Mercearia'),
-        (FRIOS, 'Frios'),
-        (PADARIA, 'Padaria'),
-        (HORTIFRUTI, 'Hortifruti'),
-        (CARNES, 'Carnes'),
-        (HIGIENE, 'Higiene'),
-        (LIMPEZA, 'Limpeza'),
-        (BEBIDAS, 'Bebidas'),
-        (OUTROS, 'Outros')
+        (CEREAIS, 'CEREAIS'),
+        (MERCEARIA, 'MERCEARIA'),
+        (FRIOS, 'FRIOS'),
+        (PADARIA, 'PADARIA'),
+        (HORTIFRUTI, 'HORTIFRUTI'),
+        (CARNES, 'CARNES'),
+        (HIGIENE, 'HIGIENE'),
+        (LIMPEZA, 'LIMPEZA'),
+        (BEBIDAS, 'BEBIDAS'),
+        (OUTROS, 'OUTROS')
     )
     semana = models.PositiveSmallIntegerField(default=SEMANA)
     ano = models.PositiveSmallIntegerField(default=ANO)
