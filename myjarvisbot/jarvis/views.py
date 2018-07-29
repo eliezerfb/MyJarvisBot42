@@ -78,7 +78,7 @@ class CommandReceiveView(ListaMixin, View):
             commands = {
                 '/start': partial(_start, name=name, chat_id=chat_id),
                 'help': _display_help,
-                'lista': display_lista,
+                'lista': self.display_lista,
                 'compra': partial(_insert_item_lista, data=msg),
                 'comprar': partial(_insert_item_lista, data=msg),
             }
