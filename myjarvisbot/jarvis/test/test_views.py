@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from myjarvisbot.jarvis import views
-from myjarvisbot.jarvis.mixins import ListaMixin
+from myjarvisbot.jarvis.mixins import ListaComprasMixin
 from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
 
 
@@ -47,18 +47,18 @@ class TestInsertProdutosRepetidos(TestCase):
         self.assertEqual(ItensLista.objects.all()[0].quantidade, '2')
 
 
-# class TestLista(TestCase):
-#     def setUp(self):
-#         self.obj = ItensLista.objects.bulk_create([
-#             ItensLista(produto='Tomate', secao=ItensLista.HORTIFRUTI),
-#             ItensLista(produto='Cebola', secao=ItensLista.HORTIFRUTI),
-#             ItensLista(produto='Batatinha', secao=ItensLista.HORTIFRUTI),
-#             ItensLista(produto='Carne Moida', secao=ItensLista.CARNES, quantidade='2'),
-#         ])
-#
-#     def test_retorno_lista_ordem(self):
-#         expected = '\n\n*HORTIFRUTI*\n - Batatinha\n - Cebola\n - Tomate\n\n*CARNES*\n - Carne Moida 2\n'
-#         self.assertEqual(ListaMixin.display_lista(), expected)
+class TestListaCompras(TestCase):
+    def setUp(self):
+        self.obj = ItensLista.objects.bulk_create([
+            ItensLista(produto='Tomate', secao=ItensLista.HORTIFRUTI),
+            ItensLista(produto='Cebola', secao=ItensLista.HORTIFRUTI),
+            ItensLista(produto='Batatinha', secao=ItensLista.HORTIFRUTI),
+            ItensLista(produto='Carne Moida', secao=ItensLista.CARNES, quantidade='2'),
+        ])
+
+    def test_retorno_lista_ordem(self):
+        expected = '\n\n*HORTIFRUTI*\n - Batatinha\n - Cebola\n - Tomate\n\n*CARNES*\n - Carne Moida 2\n'
+        self.assertEqual(ListaComprasMixin.display_lista_compras(), expected)
 
 
 class TestStart(TestCase):

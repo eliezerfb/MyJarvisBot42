@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
-from myjarvisbot.jarvis.mixins import ListaMixin
+from myjarvisbot.jarvis.mixins import ListaComprasMixin
 from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
 from myjarvisbot.utils.semana_ano import get_semana_ano
 
@@ -56,7 +56,7 @@ def _insert_item_lista(data):
     return 'Ok, anotado!'
 
 
-class CommandReceiveView(ListaMixin, View):
+class CommandReceiveView(ListaComprasMixin, View):
     def post(self, request, bot_token):
         if bot_token != settings.TELEGRAM_BOT_TOKEN:
             return HttpResponseForbidden('Invalid token')
@@ -78,7 +78,7 @@ class CommandReceiveView(ListaMixin, View):
             commands = {
                 '/start': partial(_start, name=name, chat_id=chat_id),
                 'help': _display_help,
-                'lista': self.display_lista,
+                'lista': self.display_lista_compras,
                 'compra': partial(_insert_item_lista, data=msg),
                 'comprar': partial(_insert_item_lista, data=msg),
             }

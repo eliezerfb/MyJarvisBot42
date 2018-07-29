@@ -3,8 +3,8 @@ from django.template.loader import render_to_string
 from myjarvisbot.jarvis.models import ItensLista
 
 
-class ListaMixin:
-    def display_lista(self):
+class ListaComprasMixin:
+    def display_lista_compras(self):
         itens_lista = ItensLista.objects.lista_da_semana()
         lista, secao_ant = [], ''
 
