@@ -1,8 +1,8 @@
 from django.template.loader import render_to_string
 
 from myjarvisbot.jarvis.models import ItensLista
-from myjarvisbot.utils.semana_ano import get_semana_ano
 from myjarvisbot.jarvis.models import UsersTelegram
+from myjarvisbot.utils.semana_ano import get_semana_ano
 
 
 class BotMixin:

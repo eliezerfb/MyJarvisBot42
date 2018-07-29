@@ -9,14 +9,11 @@ from functools import partial
 import telepot
 from django.conf import settings
 from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
-from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
 from myjarvisbot.jarvis.mixins import ListaComprasMixin, BotMixin
-from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
-from myjarvisbot.utils.semana_ano import get_semana_ano
 
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
 
