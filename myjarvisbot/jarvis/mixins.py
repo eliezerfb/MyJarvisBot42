@@ -6,15 +6,15 @@ from myjarvisbot.jarvis.models import UsersTelegram
 
 
 class BotMixin:
-    def display_help():
+    def display_help(self):
         return render_to_string('help.md')
 
-    def start(name, chat_id):
+    def start(self, name, chat_id):
         UsersTelegram.objects.update_or_create(
             name=name,
             defaults={'chat_id': chat_id}
         )
-        return render_to_string('help.md')
+        return self.display_help()
 
 
 class ListaComprasMixin:
