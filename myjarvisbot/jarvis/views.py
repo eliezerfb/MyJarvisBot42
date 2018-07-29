@@ -56,7 +56,7 @@ def _insert_item_lista(data):
     return 'Ok, anotado!'
 
 
-class CommandReceiveView(View, ListaMixin):
+class CommandReceiveView(ListaMixin, View):
     def post(self, request, bot_token):
         if bot_token != settings.TELEGRAM_BOT_TOKEN:
             return HttpResponseForbidden('Invalid token')

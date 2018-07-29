@@ -4,8 +4,7 @@ from myjarvisbot.jarvis.models import ItensLista
 
 
 class ListaMixin:
-    @staticmethod
-    def display_lista():
+    def display_lista(self):
         itens_lista = ItensLista.objects.lista_da_semana()
         lista, secao_ant = [], ''
 
