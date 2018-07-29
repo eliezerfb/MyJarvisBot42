@@ -1,13 +1,12 @@
 from django.test import TestCase
 
-from myjarvisbot.jarvis import views
-from myjarvisbot.jarvis.mixins import ListaComprasMixin
+from myjarvisbot.jarvis.mixins import ListaComprasMixin, BotMixin
 from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
 
 
 class TestInsertItemListaComQuantide(TestCase):
     def setUp(self):
-        views._insert_item_lista(data='tomate, 1kg')
+        ListaComprasMixin.insert_item_lista(data='tomate, 1kg')
 
     def test_insert_item_descricao(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Tomate')
@@ -18,7 +17,7 @@ class TestInsertItemListaComQuantide(TestCase):
 
 class TestInsertItemListaSemQuantide(TestCase):
     def setUp(self):
-        views._insert_item_lista(data='tomate')
+        ListaComprasMixin.insert_item_lista(data='tomate')
 
     def test_insert_item_descricao(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Tomate')
@@ -29,7 +28,7 @@ class TestInsertItemListaSemQuantide(TestCase):
 
 class TestInsertItemListaProdutoComEspaco(TestCase):
     def setUp(self):
-        views._insert_item_lista(data='Coco Ralado')
+        ListaComprasMixin.insert_item_lista(data='Coco Ralado')
 
     def test_insert_item_descricao_com_espaco(self):
         self.assertEqual(ItensLista.objects.all()[0].produto, 'Coco Ralado')
@@ -37,8 +36,8 @@ class TestInsertItemListaProdutoComEspaco(TestCase):
 
 class TestInsertProdutosRepetidos(TestCase):
     def setUp(self):
-        views._insert_item_lista(data='Linguicinha, 1')
-        views._insert_item_lista(data='Linguicinha, 2')
+        ListaComprasMixin.insert_item_lista(data='Linguicinha, 1')
+        ListaComprasMixin.insert_item_lista(data='Linguicinha, 2')
 
     def test_se_existe_apenas_1(self):
         self.assertEqual(len(ItensLista.objects.all()), 1)
@@ -63,8 +62,8 @@ class TestListaCompras(TestCase):
 
 class TestStart(TestCase):
     def setUp(self):
-        views._start('eliezerfb', '123')
-        views._start('eliezerfb', '321')
+        BotMixin.start(name='eliezerfb', chat_id='123')
+        BotMixin.start(name='eliezerfb', chat_id='321')
 
     def test_start_exists(self):
         self.assertTrue(UsersTelegram.objects.exists())
@@ -82,6 +81,6 @@ class TestBuscaUltimaSecao(TestCase):
             ItensLista(produto='Tomate', secao=ItensLista.HORTIFRUTI,
                        ano=2018, semana=2),
         ])
-        views._insert_item_lista(data='Tomate')
+        ListaComprasMixin.insert_item_lista(data='Tomate')
         self.assertEqual(ItensLista.objects.all()[1].secao,
                          ItensLista.objects.all()[2].secao)
