@@ -9,12 +9,12 @@ celery==3.1.23
 certifi==2018.4.16
 chardet==3.0.4
 dj-database-url==0.5.0
-Django==2.0.7
+django>=2.0.11
 djangorestframework==3.3.3
 future==0.16.0
 idna==2.7
 idna-ssl==1.1.0
-Jinja2==2.8
+Jinja2>=2.10.1
 jinja2-time==0.1.0
 kik==1.0.7
 kombu==3.0.37
@@ -24,7 +24,7 @@ multidict==4.3.1
 python-dateutil==2.7.3
 python-decouple==3.1
 pytz==2018.5
-requests==2.10.0
+requests>=2.20.0
 shortuuid==0.4.3
 six==1.10.0
 telepot==12.7
