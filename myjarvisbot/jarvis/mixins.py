@@ -19,6 +19,7 @@ class BotMixin:
 
 class ListaComprasMixin:
     def display_lista_compras(self):
+        sleep(5)
         itens_lista = ItensLista.objects.lista_da_semana()
         lista, secao_ant = [], ''
 
