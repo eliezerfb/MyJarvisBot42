@@ -17,7 +17,6 @@ import rows
 
 def exists_reported(title):
     from myjarvisbot.jarvis.models import NewsReported
-    # news = NewsReported.objects.all()
     news = NewsReported.objects.filter(title=title[:100])
     return news.count() > 0
 
