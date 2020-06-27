@@ -35,5 +35,5 @@ dj_static==0.0.6
 gunicorn
 psycopg2-binary
 beautifulsoup4==4.9.1
-rows=0.4.1
+rows==0.4.1
 lxml==4.5.1
