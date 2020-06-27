@@ -55,3 +55,7 @@ class UsersTelegram(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class NewsReported(models.Model):
+    title = models.CharField(max_length=100, blank=True)
