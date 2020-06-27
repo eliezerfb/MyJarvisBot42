@@ -9,6 +9,7 @@ import time
 
 from bs4 import BeautifulSoup
 from decouple import config
+import json
 import requests as r
 import rows
 
