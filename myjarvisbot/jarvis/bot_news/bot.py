@@ -55,7 +55,7 @@ for noticia in noticias_relacao:
 
     data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
     print(data)
-    r.post(url_horn, data=json.dumps(data), headers=headers)
+    r.post(url_horn, json=data, headers=headers)
     time.sleep(5.0)
 
 
@@ -83,7 +83,7 @@ for noticia in noticias_relacao:
 
     data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
     print(data)
-    r.post(url_horn, data=json.dumps(data), headers=headers)
+    r.post(url_horn, json=data, headers=headers)
     time.sleep(5.0)
 
 
@@ -111,7 +111,7 @@ for noticia in noticias_relacao:
 
 #         data = {"text": f'{titulo}\n{url}\n'}
 #         print(data)
-#         # r.post(url_horn, data=json.dumps(data), headers=headers)
+#         # r.post(url_horn, json=data, headers=headers)
 #         # api_twitter.PostUpdate(f'{titulo}\n{url}\n{hashtag}'[:280])
 #         time.sleep(5.0)
 
@@ -133,7 +133,7 @@ if not exists_reported(titulo):
     add_title(titulo)
 
     data = {"text": f'\n{conteudo}\nFonte: https://www.worldometers.info/coronavirus/\n'}
-    r.post(url_horn, data=json.dumps(data), headers=headers)
+    r.post(url_horn, json=data, headers=headers)
     print(data)
 
 
@@ -149,7 +149,7 @@ if not exists_reported(titulo):
     add_title(titulo)
 
     data = {"text": f'\n{conteudo}\nFonte: https://brasil.io/\n'}
-    r.post(url_horn, data=json.dumps(data), headers=headers)
+    r.post(url_horn, json=data, headers=headers)
     print(data)
 
 
@@ -179,6 +179,6 @@ for result in data['results']:
             add_title(titulo)
 
             data = {"text": f'\n{conteudo}\nFonte: https://brasil.io/\n'}
-            r.post(url_horn, data=json.dumps(data), headers=headers)
+            r.post(url_horn, json=data, headers=headers)
             print(data)
 
