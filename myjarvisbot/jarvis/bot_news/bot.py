@@ -28,7 +28,7 @@ def add_title(title):
     news.save()
 
 
-url_horn = "https://integram.org/webhook/"+config('TELEGRAM_BOT_TOKEN')
+url_horn = "https://integram.org/webhook/"+config('WEBHOOK')
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
 ######  RADIO RURAL   #######
