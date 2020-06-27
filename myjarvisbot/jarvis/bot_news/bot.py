@@ -153,14 +153,16 @@ if not exists_reported(titulo):
     print(data)
 
 
-cities_monitor = ['Alto Bela Vista', 'Arabutã', 'Arvoredo', 
-                  'Concórdia', 'Ipira', 'Ipumirim', 'Irani', 
-                  'Ita', 'Jaborá', 'Lindóia do Sul', 'Paial', 
-                  'Peritiba', 'Piratuba', 'Presidente Castello Branco', 
-                  'Seara', 'Xavantina', 'Chapecó', 'Xaxim', 
-                  'Xanxerê', 'São Miguel do Oeste', 
-                  'Catanduvas', 'Joaçaba', "Herval D'Oeste",
-                  'Florianópolis', 'Caçador', 'Videira']
+# cities_monitor = ['Alto Bela Vista', 'Arabutã', 'Arvoredo', 
+#                   'Concórdia', 'Ipira', 'Ipumirim', 'Irani', 
+#                   'Ita', 'Jaborá', 'Lindóia do Sul', 'Paial', 
+#                   'Peritiba', 'Piratuba', 'Presidente Castello Branco', 
+#                   'Seara', 'Xavantina', 'Chapecó', 'Xaxim', 
+#                   'Xanxerê', 'São Miguel do Oeste', 
+#                   'Catanduvas', 'Joaçaba', "Herval D'Oeste",
+#                   'Florianópolis', 'Caçador', 'Videira']
+
+cities_monitor = ['Concórdia']
 
 req = r.get('https://brasil.io/api/dataset/covid19/caso/data?search=&date=&state=SC&city=&place_type=')
 
