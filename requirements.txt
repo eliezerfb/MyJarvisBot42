@@ -18,7 +18,7 @@ Jinja2>=2.10.1
 jinja2-time==0.1.0
 kik==1.0.7
 kombu==3.0.37
-MarkupSafe==1.0
+MarkupSafe
 messengerbot==0.1.4
 multidict==4.3.1
 python-dateutil==2.7.3
@@ -33,4 +33,4 @@ yarl==1.2.6
 django-test-without-migrations==0.6
 dj_static==0.0.6
 gunicorn
-psycopg2
+psycopg2-binary
