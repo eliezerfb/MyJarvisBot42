@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from myjarvisbot.jarvis.models import ItensLista, UsersTelegram
+from myjarvisbot.jarvis.models import ItensLista, UsersTelegram, NewsReported
 
 
 class ItensListaModelAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class ItensListaModelAdmin(admin.ModelAdmin):
 
 admin.site.register(ItensLista, ItensListaModelAdmin)
 admin.site.register(UsersTelegram)
+admin.site.register(NewsReported)

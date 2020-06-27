@@ -58,4 +58,5 @@ class UsersTelegram(models.Model):
 
 
 class NewsReported(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, blank=True)
