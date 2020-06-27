@@ -11,11 +11,18 @@ from django.conf import settings
 from django.http import HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import View
+from django.views.generic import View, ListView
+from django.views import generic
 
 from myjarvisbot.jarvis.mixins import ListaComprasMixin, BotMixin
+from myjarvisbot.jarvis.models import NewsReported
 
 TelegramBot = telepot.Bot(settings.TELEGRAM_BOT_TOKEN)
+
+
+class NewsReportedView(ListView):
+    model = NewsReported
+    context_object_name = 'news_reported_list' 
 
 
 class CommandReceiveView(ListaComprasMixin, BotMixin, View):

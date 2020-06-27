@@ -1,0 +1,5 @@
+{% block content %}
+    {% for news in news_reported_list %}
+    <li> {{news.title}} </li>
+    {% endfor %}
+{% endblock %}

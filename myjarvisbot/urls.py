@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from myjarvisbot.jarvis.views import NewsReportedView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('bot/', include('myjarvisbot.jarvis.urls'), name='jarvis')
+    path('bot/', include('myjarvisbot.jarvis.urls'), name='jarvis'),
+    path('', NewsReportedView.as_view(), name='index')
 ]
