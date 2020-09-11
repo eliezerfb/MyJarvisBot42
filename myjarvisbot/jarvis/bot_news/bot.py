@@ -117,40 +117,40 @@ for noticia in noticias_relacao:
 
 
 #### CASOS worldometers ####
-url = "https://www.worldometers.info/coronavirus/"
-response = r.get(url)
-html = response.content
+#url = "https://www.worldometers.info/coronavirus/"
+#response = r.get(url)
+#html = response.content
 
-table = rows.import_from_html(BytesIO(html), index=0)
+#table = rows.import_from_html(BytesIO(html), index=0)
 
 
-for row in table:
-    if row.country_other == 'Brazil':
-        conteudo = f'Total de casos no Brasil: {row.total_cases}\nMortos: {row.total_deaths}\nRecuperados: {row.total_recovered}\nCasos Críticos: {row.serious_critical}'
-        titulo = f'br: {row.total_cases} M: {row.total_deaths} R: {row.total_recovered} C: {row.serious_critical}'
+#for row in table:
+#    if row.country_other == 'Brazil':
+#        conteudo = f'Total de casos no Brasil: {row.total_cases}\nMortos: {row.total_deaths}\nRecuperados: {row.total_recovered}\nCasos Críticos: {row.serious_critical}'
+#        titulo = f'br: {row.total_cases} M: {row.total_deaths} R: {row.total_recovered} C: {row.serious_critical}'
 
-if not exists_reported(titulo):
-    add_title(titulo)
+#if not exists_reported(titulo):
+#    add_title(titulo)
 
-    data = {"text": f'\n{conteudo}\nFonte: https://www.worldometers.info/coronavirus/\n'}
-    r.post(url_horn, json=data, headers=headers)
-    print(data)
+#    data = {"text": f'\n{conteudo}\nFonte: https://www.worldometers.info/coronavirus/\n'}
+#    r.post(url_horn, json=data, headers=headers)
+#    print(data)
 
 
 ##### Brasil.IO #####
-req = r.get('https://brasil.io/api/dataset/covid19/caso/data?search=&date=&state=SC&city=&place_type=state')
+#req = r.get('https://brasil.io/api/dataset/covid19/caso/data?search=&date=&state=SC&city=&place_type=state')
 
-data = req.json()
+#data = req.json()
 
-conteudo = f"COVID-19 em SC. Casos confirmados: {data['results'][0]['confirmed']}.\nMortes: {data['results'][0]['deaths']}."
-titulo = f"SC: {data['results'][0]['confirmed']}.M: {data['results'][0]['deaths']}."
+#conteudo = f"COVID-19 em SC. Casos confirmados: {data['results'][0]['confirmed']}.\nMortes: {data['results'][0]['deaths']}."
+#titulo = f"SC: {data['results'][0]['confirmed']}.M: {data['results'][0]['deaths']}."
 
-if not exists_reported(titulo):
-    add_title(titulo)
+#if not exists_reported(titulo):
+#    add_title(titulo)
 
-    data = {"text": f'\n{conteudo}\nFonte: https://brasil.io/\n'}
-    r.post(url_horn, json=data, headers=headers)
-    print(data)
+#    data = {"text": f'\n{conteudo}\nFonte: https://brasil.io/\n'}
+#    r.post(url_horn, json=data, headers=headers)
+#    print(data)
 
 
 # cities_monitor = ['Alto Bela Vista', 'Arabutã', 'Arvoredo', 
@@ -162,25 +162,25 @@ if not exists_reported(titulo):
 #                   'Catanduvas', 'Joaçaba', "Herval D'Oeste",
 #                   'Florianópolis', 'Caçador', 'Videira']
 
-cities_monitor = ['Concórdia']
+#cities_monitor = ['Concórdia']
 
-req = r.get('https://brasil.io/api/dataset/covid19/caso/data?search=&date=&state=SC&city=&place_type=')
+#req = r.get('https://brasil.io/api/dataset/covid19/caso/data?search=&date=&state=SC&city=&place_type=')
 
-data = req.json()
+#data = req.json()
 
 
-for result in data['results']:
-    if not(result['is_last']):
-        continue
+#for result in data['results']:
+#    if not(result['is_last']):
+#        continue
 
-    if result['city'] in cities_monitor:
-        conteudo = f"COVID-19 em {result['city']}-SC.\nCasos confirmados: {result['confirmed']}.\nMortes: {result['deaths']}."
-        titulo = f"{result['city']}.: {result['confirmed']}.M: {result['deaths']}."
+#    if result['city'] in cities_monitor:
+#        conteudo = f"COVID-19 em {result['city']}-SC.\nCasos confirmados: {result['confirmed']}.\nMortes: {result['deaths']}."
+#        titulo = f"{result['city']}.: {result['confirmed']}.M: {result['deaths']}."
 
-        if not exists_reported(titulo):
-            add_title(titulo)
+#        if not exists_reported(titulo):
+#            add_title(titulo)
 
-            data = {"text": f'\n{conteudo}\nFonte: https://brasil.io/\n'}
-            r.post(url_horn, json=data, headers=headers)
-            print(data)
+ #           data = {"text": f'\n{conteudo}\nFonte: https://brasil.io/\n'}
+ #           r.post(url_horn, json=data, headers=headers)
+ #           print(data)
 
