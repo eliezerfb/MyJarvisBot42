@@ -43,16 +43,15 @@ for site in sites_monitor:
     page = urlopen(req)
     soup = BeautifulSoup(page, features="html.parser")
 
-    noticias_relacao = soup.find_all("div", attrs={"class":"indentacaoNormal"})
+    noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
     for noticia in noticias_relacao:
         all_p = noticia.find_all("p")
         for p in all_p:
-            span = p.find("span", attrs={"class":"tituloConteudo"})
+            span = p.find("span", attrs={"class": "tituloConteudo"})
             if span:
                 titulo = site['doc']+' '+span.text.strip()
             conteudo = p.text.strip().replace(titulo, '')       
-            data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
-            print(data)
+            data = {"text": f'{titulo}\n{conteudo}\n{site['site']}\n'}
     
             if exists_reported(titulo):
                 continue
@@ -73,13 +72,12 @@ for site in sites_monitor:
     page = urlopen(req)
     soup = BeautifulSoup(page, features="html.parser")
 
-    noticias_relacao = soup.find_all("article", attrs={"class":"conteudo-lista__item clearfix"})
+    noticias_relacao = soup.find_all("article", attrs={"class": "conteudo-lista__item clearfix"})
     for noticia in noticias_relacao:
         h2 = noticia.find("h2", attrs={"class": "conteudo-lista__item__titulo"})
         titulo = site['doc']+' '+h2.text.strip()
         conteudo = noticia.find("p").text.strip()
-        data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
-        print(data)
+        data = {"text": f'{titulo}\n{conteudo}\n{site['site']}\n'}
 
         if exists_reported(titulo):
             continue
