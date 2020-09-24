@@ -52,6 +52,7 @@ for site in sites_monitor:
                 titulo = site['doc']+' '+span.text.strip()
             conteudo = p.text.strip().replace(titulo, '')       
             data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
+            print(data)
     
             if exists_reported(titulo):
                 continue
@@ -76,6 +77,7 @@ for site in sites_monitor:
         titulo = site['doc']+' '+h2.text.strip()
         conteudo = noticia.find("p").text.strip()
         data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
+        print(data)
 
         if exists_reported(titulo):
             continue
