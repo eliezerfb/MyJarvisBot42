@@ -59,8 +59,10 @@ for site in sites_monitor:
 
             add_title(titulo)
 
-            # r.post(url_hornC4, json=data, headers=headers)
-            # time.sleep(5.0)
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
+
+            
 
 
 sites_monitor = [{'site':'https://dfe-portal.svrs.rs.gov.br/Mdfe/Documentos', 'doc':'MDF-e'},
@@ -84,8 +86,8 @@ for site in sites_monitor:
 
         add_title(titulo)
 
-        # r.post(url_hornC4, json=data, headers=headers)
-        # time.sleep(5.0)
+        r.post(url_hornC4, json=data, headers=headers)
+        time.sleep(5.0)
 
 
 # issue_data = {
