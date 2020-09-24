@@ -28,11 +28,82 @@ def add_title(title):
 
 
 url_horn = "https://integram.org/webhook/"+config('WEBHOOK')
+url_hornC4 = "https://integram.org/webhook/"+'clI0-z3PNX8'#config('WEBHOOK_C4')
+
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
+##### Monitor SEFAZ ######
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+
+sites_monitor = ["https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=tW+YMyk/50s=",
+                 "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg="]
+
+for site in sites_monitor:
+    req = Request(site, headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
+
+    noticias_relacao = soup.find_all("div", attrs={"class":"indentacaoNormal"})
+    for noticia in noticias_relacao:
+        all_p = noticia.find_all("p")
+        for p in all_p:
+            span = p.find("span", attrs={"class":"tituloConteudo"})
+            if span:
+                titulo = span.text.strip()
+            conteudo = p.text.strip().replace(titulo, '')       
+            data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
+    
+            if exists_reported(titulo):
+                continue
+
+            add_title(titulo)
+
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
+
+
+sites_monitor = ['https://dfe-portal.svrs.rs.gov.br/Mdfe/Documentos',
+                 'https://dfe-portal.svrs.rs.gov.br/Mdfe/Avisos']
+
+for site in sites_monitor:
+    req = Request(site, headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
+
+    noticias_relacao = soup.find_all("article", attrs={"class":"conteudo-lista__item clearfix"})
+    for noticia in noticias_relacao:
+        h2 = noticia.find("h2", attrs={"class": "conteudo-lista__item__titulo"})
+        titulo = h2.text.strip()
+        conteudo = noticia.find("p").text.strip()
+        data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
+
+        if exists_reported(titulo):
+            continue
+
+        add_title(titulo)
+
+        r.post(url_hornC4, json=data, headers=headers)
+        time.sleep(5.0)
+
+
+
+
+# issue_data = {
+#     "title": titulo,
+#     "body": conteudo
+# }
+
+# github_hdr = {
+#     'Authorization': 'token '+GITHUB_TOKEN,
+#     'User-Agent': 'Awesome-Octocat-App',
+#     'Accept': 'application/vnd.github.inertia-preview+json'
+# }
+# card = r.post(url_github, json=issue_data, headers=github_hdr)
+# print(card)
+
 
 ######  RADIO RURAL   #######
 
-# site= "http://www.radiorural.com.br/noticias/categoria/33-coronavirus"
 site = "http://www.radiorural.com.br/noticias/"
 hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 req = Request(site, headers=hdr)
@@ -59,7 +130,7 @@ for noticia in noticias_relacao:
     time.sleep(5.0)
 
 
-######  ATUAL FM   #######
+# ######  ATUAL FM   #######
 
 site= "https://www.atualfm.com.br/site/category/ultimas-noticias/"
 hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
