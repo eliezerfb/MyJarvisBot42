@@ -28,7 +28,7 @@ def add_title(title):
 
 
 url_horn = "https://integram.org/webhook/"+config('WEBHOOK')
-url_hornC4 = "https://integram.org/webhook/"+'clI0-z3PNX8'#config('WEBHOOK_C4')
+url_hornC4 = "https://integram.org/webhook/"+config('WEBHOOK_C4')
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
