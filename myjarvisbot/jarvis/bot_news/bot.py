@@ -35,11 +35,11 @@ headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 ##### Monitor SEFAZ ######
 hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 
-sites_monitor = ["https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=tW+YMyk/50s=",
-                 "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg="]
+sites_monitor = [{'site': "https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=tW+YMyk/50s=", 'doc':'NF-e'},
+                 {'site': "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg=", 'doc':'CT-e'}]
 
 for site in sites_monitor:
-    req = Request(site, headers=hdr)
+    req = Request(site['site'], headers=hdr)
     page = urlopen(req)
     soup = BeautifulSoup(page, features="html.parser")
 
@@ -49,7 +49,7 @@ for site in sites_monitor:
         for p in all_p:
             span = p.find("span", attrs={"class":"tituloConteudo"})
             if span:
-                titulo = span.text.strip()
+                titulo = site['doc']+' '+span.text.strip()
             conteudo = p.text.strip().replace(titulo, '')       
             data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
     
@@ -58,22 +58,22 @@ for site in sites_monitor:
 
             add_title(titulo)
 
-            r.post(url_hornC4, json=data, headers=headers)
-            time.sleep(5.0)
+            # r.post(url_hornC4, json=data, headers=headers)
+            # time.sleep(5.0)
 
 
-sites_monitor = ['https://dfe-portal.svrs.rs.gov.br/Mdfe/Documentos',
-                 'https://dfe-portal.svrs.rs.gov.br/Mdfe/Avisos']
+sites_monitor = [{'site':'https://dfe-portal.svrs.rs.gov.br/Mdfe/Documentos', 'doc':'MDF-e'},
+                 {'site':'https://dfe-portal.svrs.rs.gov.br/Mdfe/Avisos', 'doc':'MDF-e'}]
 
 for site in sites_monitor:
-    req = Request(site, headers=hdr)
+    req = Request(site['site'], headers=hdr)
     page = urlopen(req)
     soup = BeautifulSoup(page, features="html.parser")
 
     noticias_relacao = soup.find_all("article", attrs={"class":"conteudo-lista__item clearfix"})
     for noticia in noticias_relacao:
         h2 = noticia.find("h2", attrs={"class": "conteudo-lista__item__titulo"})
-        titulo = h2.text.strip()
+        titulo = site['doc']+' '+h2.text.strip()
         conteudo = noticia.find("p").text.strip()
         data = {"text": f'{titulo}\n{conteudo}\n{site}\n'}
 
@@ -82,15 +82,13 @@ for site in sites_monitor:
 
         add_title(titulo)
 
-        r.post(url_hornC4, json=data, headers=headers)
-        time.sleep(5.0)
-
-
+        # r.post(url_hornC4, json=data, headers=headers)
+        # time.sleep(5.0)
 
 
 # issue_data = {
-#     "title": titulo,
-#     "body": conteudo
+#     "name": titulo,
+#     "body": conteudo,
 # }
 
 # github_hdr = {
