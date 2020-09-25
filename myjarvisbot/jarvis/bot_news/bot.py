@@ -50,8 +50,9 @@ for site in sites_monitor:
             span = p.find("span", attrs={"class": "tituloConteudo"})
             if span:
                 titulo = site['doc']+' '+span.text.strip()
-            conteudo = p.text.strip().replace(titulo, '')       
-            data = {"text": f'{titulo}\n{conteudo}\n{site['site']}\n'}
+            conteudo = p.text.strip().replace(titulo, '')      
+            url = site['site']
+            data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
     
             if exists_reported(titulo):
                 continue
@@ -77,7 +78,8 @@ for site in sites_monitor:
         h2 = noticia.find("h2", attrs={"class": "conteudo-lista__item__titulo"})
         titulo = site['doc']+' '+h2.text.strip()
         conteudo = noticia.find("p").text.strip()
-        data = {"text": f'{titulo}\n{conteudo}\n{site['site']}\n'}
+        url = site['site']
+        data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
 
         if exists_reported(titulo):
             continue
