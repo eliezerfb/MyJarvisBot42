@@ -32,6 +32,39 @@ url_hornC4 = "https://integram.org/webhook/"+config('WEBHOOK_C4')
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
+##### Monitor NFC-e SC ######
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+
+sites_monitor = [{'site': "http://www.sef.sc.gov.br/servicos/servico/136", 'doc':'NFC-e'}]
+
+for site in sites_monitor:
+    req = Request(site['site'], headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
+
+    noticias_relacao = soup.find_all("div", attrs={"class": "panel-body"})
+    for noticia in noticias_relacao:
+        all_p = noticia.find_all("p")
+        for p in all_p:
+            a = p.find("a")
+            if a:
+                titulo = site['doc']+' '+a.text.strip()
+            else:
+                continue
+            
+            conteudo = p.text.strip().replace(titulo, '')
+            url = site['site']
+            data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+    
+            if exists_reported(titulo):
+                continue
+
+            add_title(titulo)
+
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
+
+
 ##### Monitor SEFAZ ######
 hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 
