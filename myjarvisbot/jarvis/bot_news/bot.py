@@ -46,7 +46,6 @@ for site in sites_monitor:
     for noticia in noticias_relacao:
         all_p = noticia.find_all("p")
         for p in all_p:
-            print(p)
             a = p.find("a")
             if a:
                 titulo = site['doc']+' '+a.text.strip()
@@ -56,8 +55,6 @@ for site in sites_monitor:
             conteudo = p.text.strip().replace(titulo, '')
             url = site['site']
             data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-            
-            print(data)
 
             if exists_reported(titulo):
                 continue
