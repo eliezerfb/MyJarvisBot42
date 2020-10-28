@@ -51,11 +51,11 @@ for site in sites_monitor:
                 titulo = site['doc']+' '+a.text.strip()
             else:
                 continue
-            
+
             conteudo = p.text.strip().replace(titulo, '')
             url = site['site']
             data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-    
+
             if exists_reported(titulo):
                 continue
 
