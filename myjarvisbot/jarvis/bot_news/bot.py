@@ -26,14 +26,40 @@ def add_title(title):
     news = NewsReported(title=title[:100])
     news.save()
 
-
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 url_horn = "https://integram.org/webhook/"+config('WEBHOOK')
 url_hornC4 = "https://integram.org/webhook/"+config('WEBHOOK_C4')
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
+##### Monitor data tabela IBPT - github ######
+sites_monitor = [{'site': "https://github.com/frones/ACBr/tree/master/Exemplos/ACBrTCP/ACBrIBPTax/tabela", 'doc':'Tabela IBPT'}]
+
+for site in sites_monitor:
+    req = Request(site['site'], headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
+    noticias_relacao = soup.find_all("div", attrs={"class": "Box-header"})
+    titulo = ''
+    for noticia in noticias_relacao:
+        all_a = noticia.find_all("a", attrs={"class": "Link--primary"})
+        for a in all_a:
+            titulo = a.text.strip()
+            break
+
+        all_a = noticia.find_all("a", attrs={"class": "Link--secondary"})
+        for a in all_a:
+            titulo = titulo + ' ' + a.text.strip()
+
+    url = site['site']
+    data = {"text": f'{titulo}\n{url}\n'}
+
+    add_title(titulo)
+
+    r.post(url_hornC4, json=data, headers=headers)
+    time.sleep(5.0)
+
 ##### Monitor NFC-e SC ######
-hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 
 sites_monitor = [{'site': "http://www.sef.sc.gov.br/servicos/servico/136", 'doc':'NFC-e'}]
 
