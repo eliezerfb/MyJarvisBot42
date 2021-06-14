@@ -28,7 +28,7 @@ requests>=2.20.0
 shortuuid==0.4.3
 six==1.10.0
 telepot==12.7
-urllib3==1.24.2
+urllib3==1.26.5
 yarl==1.2.6
 django-test-without-migrations==0.6
 dj_static==0.0.6
