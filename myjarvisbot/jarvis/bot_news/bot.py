@@ -40,19 +40,20 @@ for site in sites_monitor:
     page = urlopen(req)
     soup = BeautifulSoup(page, features="html.parser")
     noticias_relacao = soup.find_all("div", attrs={"class": "Box-header"})
-    titulo = ''
+    titulo = 'ACBrIBPTax'
     for noticia in noticias_relacao:
         all_a = noticia.find_all("a", attrs={"class": "Link--primary"})
         for a in all_a:
-            titulo = a.text.strip()
+            titulo = titulo+' '+a.text.strip()
             break
 
         all_a = noticia.find_all("a", attrs={"class": "Link--secondary"})
         for a in all_a:
             titulo = titulo + ' ' + a.text.strip()
 
+    conteudo = titulo
     url = site['site']
-    data = {"text": f'{titulo}\n{url}\n'}
+    data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
 
     add_title(titulo)
 
