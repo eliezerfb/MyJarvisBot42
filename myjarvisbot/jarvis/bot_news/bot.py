@@ -51,15 +51,18 @@ for site in sites_monitor:
         for a in all_a:
             titulo = titulo + ' ' + a.text.strip()
 
-    conteudo = titulo
-    url = site['site']
-    data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-    print(data)
+        if exists_reported(titulo):
+            continue
 
-    add_title(titulo)
+        conteudo = titulo
+        url = site['site']
+        data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+        print(data)
 
-    r.post(url_hornC4, json=data, headers=headers)
-    time.sleep(5.0)
+        add_title(titulo)
+
+        r.post(url_hornC4, json=data, headers=headers)
+        time.sleep(5.0)
 
 ##### Monitor NFC-e SC ######
 
