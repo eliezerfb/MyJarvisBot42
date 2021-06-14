@@ -54,6 +54,7 @@ for site in sites_monitor:
     conteudo = titulo
     url = site['site']
     data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+    print(data)
 
     add_title(titulo)
 
