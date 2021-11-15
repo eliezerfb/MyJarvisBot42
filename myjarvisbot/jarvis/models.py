@@ -34,7 +34,7 @@ class ItensLista(models.Model):
     semana = models.PositiveSmallIntegerField(default=SEMANA)
     ano = models.PositiveSmallIntegerField(default=ANO)
     produto = models.CharField(max_length=50)
-    quantidade = models.CharField(max_length=10, default='', blank=True)
+    quantidade = models.CharField(max_length=20, default='', blank=True)
     secao = models.PositiveSmallIntegerField(
         'seção', choices=SECOES, blank=True, default=OUTROS
     )
