@@ -46,6 +46,7 @@ class ListaComprasMixin:
     def insert_item_lista(self, data):
         produto = data.split(',')
         quantidade = '' if len(produto) < 2 else produto[1].strip()
+        quantidade = quantidade[0:10]
         semana, ano = get_semana_ano()
         secao = ItensLista.OUTROS
 
