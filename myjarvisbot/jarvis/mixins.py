@@ -49,8 +49,8 @@ class ListaComprasMixin:
         quantidade = quantidade.replace('/', '_')
         print(produto, quantidade)
         if (quantidade == 'uva_morango') or (quantidade == ' uva_morango'):
-            print('oi')
-            exit
+            quantidade = ''
+
         semana, ano = get_semana_ano()
         secao = ItensLista.OUTROS
 
