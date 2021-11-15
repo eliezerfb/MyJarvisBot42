@@ -46,11 +46,6 @@ class ListaComprasMixin:
     def insert_item_lista(self, data):
         produto = data.split(',')
         quantidade = '' if len(produto) < 2 else produto[1].strip()
-        quantidade = quantidade.replace('/', '_')
-        print(produto, quantidade)
-        if (quantidade == 'uva_morango') or (quantidade == ' uva_morango'):
-            quantidade = ''
-
         semana, ano = get_semana_ano()
         secao = ItensLista.OUTROS
 
