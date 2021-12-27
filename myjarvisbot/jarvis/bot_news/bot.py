@@ -132,7 +132,7 @@ for site in sites_monitor:
 
             r.post(url_hornC4, json=data, headers=headers)
             time.sleep(5.0)
-            
+
 
 sites_monitor = [
                  {'site': "https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false", 'doc':'NF-e'}
@@ -149,9 +149,9 @@ for site in sites_monitor:
     for noticia in noticias_relacao:
         all_p = noticia.find_all("p")
         for p in all_p:
-            conteudo = p.text.strip()
+            titulo = p.text.strip()
             url = site['site']
-            data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+            data = {"text": f'{titulo}\n{url}\n'}
     
             if exists_reported(titulo):
                 continue
