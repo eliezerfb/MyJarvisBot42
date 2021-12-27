@@ -27,8 +27,8 @@ def add_title(title):
     news.save()
 
 hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
-# url_horn = "https://integram.org/webhook/"+config('WEBHOOK')
-# url_hornC4 = "https://integram.org/webhook/"+config('WEBHOOK_C4')
+url_horn = "https://integram.org/webhook/"+config('WEBHOOK')
+url_hornC4 = "https://integram.org/webhook/"+config('WEBHOOK_C4')
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
@@ -51,17 +51,17 @@ for site in sites_monitor:
         for a in all_a:
             titulo = titulo + ' ' + a.text.strip()
 
-        #if exists_reported(titulo):
-        #    continue
+        if exists_reported(titulo):
+            continue
 
         conteudo = titulo
         url = site['site']
         data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
         print(data)
 
-        #add_title(titulo)
+        add_title(titulo)
 
-        # r.post(url_hornC4, json=data, headers=headers)
+        r.post(url_hornC4, json=data, headers=headers)
         time.sleep(5.0)
 
 ##### Monitor NFC-e SC ######
