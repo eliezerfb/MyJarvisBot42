@@ -4,6 +4,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myjarvisbot.settings")
 
 
 from io import BytesIO
+import urllib
 from urllib.request import Request, urlopen
 import time
 
@@ -12,6 +13,7 @@ from decouple import config
 import json
 import requests as r
 import rows
+from http.cookiejar import CookieJar
 
 
 
@@ -176,57 +178,57 @@ for site in sites_monitor:
 
 ######  RADIO RURAL   #######
 
-# site = "http://www.radiorural.com.br/noticias/"
-# hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
-# req = Request(site, headers=hdr)
-# page = urlopen(req)
-# soup = BeautifulSoup(page, features="html.parser")
+site = "http://www.radiorural.com.br/noticias/"
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+req = Request(site, headers=hdr)
+page = urlopen(req)
+soup = BeautifulSoup(page, features="html.parser")
 
 
-# #noticias_relacao = soup.find_all("div", attrs={"class":"box_noticias_relacao"})
+#noticias_relacao = soup.find_all("div", attrs={"class":"box_noticias_relacao"})
 
-# for noticia in noticias_relacao:
-#     titulo = noticia.find("div", {"class": "linha_titulo"}).text.strip()
-#     if exists_reported(titulo):
-#         continue
+for noticia in noticias_relacao:
+    titulo = noticia.find("div", {"class": "linha_titulo"}).text.strip()
+    if exists_reported(titulo):
+        continue
     
-#     add_title(titulo)
+    add_title(titulo)
 
-#     conteudo = noticia.find("div", {"class": "conteudo"}).text.strip()
-#     url = noticia.find('a', href=True)['href']
-#     url = f'http://www.radiorural.com.br/{url}'
+    conteudo = noticia.find("div", {"class": "conteudo"}).text.strip()
+    url = noticia.find('a', href=True)['href']
+    url = f'http://www.radiorural.com.br/{url}'
 
-#     data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-#     print(data)
-#  #   r.post(url_horn, json=data, headers=headers)
-#     time.sleep(5.0)
-
-
-# ######  ATUAL FM   #######
-
-# site= "https://www.atualfm.com.br/site/category/ultimas-noticias/"
-# hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
-# req = Request(site,headers=hdr)
-# page = urlopen(req)
-# soup = BeautifulSoup(page, features="html.parser")
+    data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+    print(data)
+ #   r.post(url_horn, json=data, headers=headers)
+    time.sleep(5.0)
 
 
-#noticias_relacao = soup.find_all("div", attrs={"class":"post-area"})
+######  ATUAL FM   #######
+
+site= "https://www.atualfm.com.br/site/category/ultimas-noticias/"
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+req = Request(site,headers=hdr)
+page = urlopen(req)
+soup = BeautifulSoup(page, features="html.parser")
 
 
-# for noticia in noticias_relacao:
-#     titulo = noticia.find("div", {"class": "blog-title"}).text.strip()
-#     if exists_reported(titulo):
-#         continue
+noticias_relacao = soup.find_all("div", attrs={"class":"post-area"})
+
+
+for noticia in noticias_relacao:
+    titulo = noticia.find("div", {"class": "blog-title"}).text.strip()
+    if exists_reported(titulo):
+        continue
     
-#     add_title(titulo)
+    add_title(titulo)
 
-#     conteudo = noticia.find("div", {"class": "blog-content"}).text.strip()
-#     url = noticia.find('a', href=True)['href']
+    conteudo = noticia.find("div", {"class": "blog-content"}).text.strip()
+    url = noticia.find('a', href=True)['href']
 
-#     data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-#     print(data)
-# #    r.post(url_horn, json=data, headers=headers)
-#     time.sleep(5.0)
+    data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+    print(data)
+#    r.post(url_horn, json=data, headers=headers)
+    time.sleep(5.0)
 
 
