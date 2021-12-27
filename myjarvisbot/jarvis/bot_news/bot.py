@@ -34,6 +34,7 @@ headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
 ##### Monitor data tabela IBPT - github ######
 sites_monitor = [{'site': "https://github.com/frones/ACBr/tree/master/Exemplos/ACBrTCP/ACBrIBPTax/tabela", 'doc':'Tabela IBPT'}]
+print('Tabela IBPT')
 
 for site in sites_monitor:
     req = Request(site['site'], headers=hdr)
@@ -67,6 +68,7 @@ for site in sites_monitor:
 ##### Monitor NFC-e SC ######
 
 sites_monitor = [{'site': "http://www.sef.sc.gov.br/servicos/servico/136", 'doc':'NFC-e'}]
+print('NFC-e SC')
 
 for site in sites_monitor:
     req = Request(site['site'], headers=hdr)
@@ -98,41 +100,43 @@ for site in sites_monitor:
             time.sleep(5.0)
 
 
-# ##### Monitor SEFAZ ######
-# hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+##### Monitor SEFAZ ######
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+# {'site': "https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false", 'doc':'NF-e'},
+sites_monitor = [
+                 {'site': "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg=", 'doc':'CT-e'}]
+print('NF-e/CT-e')
+for site in sites_monitor:
+    req = Request(site['site'], headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
 
-# sites_monitor = [{'site': "https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false", 'doc':'NF-e'},
-#                  {'site': "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg=", 'doc':'CT-e'}]
-
-# for site in sites_monitor:
-#     req = Request(site['site'], headers=hdr)
-#     page = urlopen(req)
-#     soup = BeautifulSoup(page, features="html.parser")
-
-#     noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
-#     for noticia in noticias_relacao:
-#         all_p = noticia.find_all("p")
-#         for p in all_p:
-#             span = p.find("span", attrs={"class": "tituloConteudo"})
-#             if span:
-#                 titulo = site['doc']+' '+span.text.strip()
-#             conteudo = p.text.strip().replace(titulo, '')      
-#             url = site['site']
-#             data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+    noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
+    for noticia in noticias_relacao:
+        all_p = noticia.find_all("p")
+        for p in all_p:
+            span = p.find("span", attrs={"class": "tituloConteudo"})
+            if span:
+                titulo = site['doc']+' '+span.text.strip()
+            conteudo = p.text.strip().replace(titulo, '')      
+            url = site['site']
+            data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
     
-#             if exists_reported(titulo):
-#                 continue
+            if exists_reported(titulo):
+                continue
 
-#             add_title(titulo)
+            add_title(titulo)
 
-#             r.post(url_hornC4, json=data, headers=headers)
-#             time.sleep(5.0)
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
 
             
 
 
 sites_monitor = [{'site':'https://dfe-portal.svrs.rs.gov.br/Mdfe/Documentos', 'doc':'MDF-e'},
                  {'site':'https://dfe-portal.svrs.rs.gov.br/Mdfe/Avisos', 'doc':'MDF-e'}]
+
+print('MDF-e')
 
 for site in sites_monitor:
     req = Request(site['site'], headers=hdr)
