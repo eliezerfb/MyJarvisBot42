@@ -66,34 +66,36 @@ for site in sites_monitor:
 
 ##### Monitor NFC-e SC ######
 
-# sites_monitor = [{'site': "http://www.sef.sc.gov.br/servicos/servico/136", 'doc':'NFC-e'}]
+sites_monitor = [{'site': "http://www.sef.sc.gov.br/servicos/servico/136", 'doc':'NFC-e'}]
 
-# for site in sites_monitor:
-#     req = Request(site['site'], headers=hdr)
-#     page = urlopen(req)
-#     soup = BeautifulSoup(page, features="html.parser")
+for site in sites_monitor:
+    req = Request(site['site'], headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
 
-#     noticias_relacao = soup.find_all("div", attrs={"class": "panel-body"})
-#     for noticia in noticias_relacao:
-#         all_p = noticia.find_all("p")
-#         for p in all_p:
-#             a = p.find("a")
-#             if a:
-#                 titulo = site['doc']+' '+a.text.strip()
-#             else:
-#                 continue
+    noticias_relacao = soup.find_all("div", attrs={"class": "panel-body"})
+    for noticia in noticias_relacao:
+        all_p = noticia.find_all("p")
+        for p in all_p:
+            a = p.find("a")
+            if a:
+                titulo = site['doc']+' '+a.text.strip()
+            else:
+                continue
 
-#             conteudo = p.text.strip().replace(titulo, '')
-#             url = site['site']
-#             data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+            conteudo = p.text.strip().replace(titulo, '')
+            url = site['site']
+            data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
 
-#             if exists_reported(titulo):
-#                 continue
+            if exists_reported(titulo):
+                continue
 
-#             add_title(titulo)
+            add_title(titulo)
 
-#             r.post(url_hornC4, json=data, headers=headers)
-#             time.sleep(5.0)
+            print(data)
+
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
 
 
 # ##### Monitor SEFAZ ######
