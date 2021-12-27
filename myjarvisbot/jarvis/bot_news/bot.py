@@ -185,7 +185,7 @@ page = urlopen(req)
 soup = BeautifulSoup(page, features="html.parser")
 
 
-#noticias_relacao = soup.find_all("div", attrs={"class":"box_noticias_relacao"})
+noticias_relacao = soup.find_all("div", attrs={"class":"box_noticias_relacao"})
 
 for noticia in noticias_relacao:
     titulo = noticia.find("div", {"class": "linha_titulo"}).text.strip()
