@@ -99,34 +99,34 @@ for site in sites_monitor:
 
 
 # ##### Monitor SEFAZ ######
-# hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 
-# sites_monitor = [{'site': "https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false", 'doc':'NF-e'},
-#                  {'site': "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg=", 'doc':'CT-e'}]
+sites_monitor = [{'site': "https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false", 'doc':'NF-e'},
+                 {'site': "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg=", 'doc':'CT-e'}]
 
-# for site in sites_monitor:
-#     req = Request(site['site'], headers=hdr)
-#     page = urlopen(req)
-#     soup = BeautifulSoup(page, features="html.parser")
+for site in sites_monitor:
+    req = Request(site['site'], headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
 
-#     noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
-#     for noticia in noticias_relacao:
-#         all_p = noticia.find_all("p")
-#         for p in all_p:
-#             span = p.find("span", attrs={"class": "tituloConteudo"})
-#             if span:
-#                 titulo = site['doc']+' '+span.text.strip()
-#             conteudo = p.text.strip().replace(titulo, '')      
-#             url = site['site']
-#             data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+    noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
+    for noticia in noticias_relacao:
+        all_p = noticia.find_all("p")
+        for p in all_p:
+            span = p.find("span", attrs={"class": "tituloConteudo"})
+            if span:
+                titulo = site['doc']+' '+span.text.strip()
+            conteudo = p.text.strip().replace(titulo, '')      
+            url = site['site']
+            data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
     
-#             if exists_reported(titulo):
-#                 continue
+            if exists_reported(titulo):
+                continue
 
-#             add_title(titulo)
+            add_title(titulo)
 
-#             r.post(url_hornC4, json=data, headers=headers)
-#             time.sleep(5.0)
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
 
             
 
