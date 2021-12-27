@@ -108,7 +108,7 @@ hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.
 sites_monitor = [
                  {'site': "https://www.cte.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=Y0nErnoZpsg=", 'doc':'CT-e'}
                 ]
-print('NF-e')
+print('CT-e')
 for site in sites_monitor:
     req = Request(site['site'], headers=hdr)
     page = urlopen(req)
@@ -228,7 +228,7 @@ for noticia in noticias_relacao:
 
     data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
     print(data)
- #   r.post(url_horn, json=data, headers=headers)
+    r.post(url_horn, json=data, headers=headers)
     time.sleep(5.0)
 
 
@@ -256,7 +256,7 @@ for noticia in noticias_relacao:
 
     data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
     print(data)
-#    r.post(url_horn, json=data, headers=headers)
+    r.post(url_horn, json=data, headers=headers)
     time.sleep(5.0)
 
 
