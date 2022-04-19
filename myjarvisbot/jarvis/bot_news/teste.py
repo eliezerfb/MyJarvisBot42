@@ -1,29 +1,35 @@
-from http.cookiejar import CookieJar
+from cgitb import strong
 from urllib.request import Request, urlopen
 import urllib
 from bs4 import BeautifulSoup
 
 
 try:
-    print('Rádio Atual')
-    site= "https://atualfm.com.br/tdb_templates/category-template-week-pro/"
+    print('SEFAZ PE')
+    site= "https://www.sefaz.pe.gov.br/Servicos/Nota-Fiscal-de-Consumidor-Eletronica/Paginas/Avisos-NFC-e.aspx"
     hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
     req = Request(site,headers=hdr)
     page = urlopen(req)
     soup = BeautifulSoup(page, features="html.parser")
 
 
-    noticias_relacao = soup.find_all("div", attrs={"class":"td-module-container td-category-pos-above"})
+    noticias_relacao = soup.find_all("div", attrs={"class":"article article-body"})
 
     for noticia in noticias_relacao:
-        all_h = noticia.find_all("h3", attrs={"class":"entry-title td-module-title"})
-        for h in all_h:
-            print(h.text.strip())
-            continue
-        conteudo = ''
+        all_strong = noticia.find_all("strong")
+        for s in all_strong:
+            if len(s.text.strip()) <= 12:
+                continue
+            print(s.text.strip())
 
-        url = noticia.find('a', href=True)['href']
-        print(url)
+    #     all_h = noticia.find_all("h3", attrs={"class":"entry-title td-module-title"})
+    #     for h in all_h:
+    #         print(h.text.strip())
+    #         continue
+    #     conteudo = ''
+
+        # url = noticia.find('a', href=True)['href']
+        # print(url)
         
         # all_a = noticia.find_all("a", attrs={"class":"td-image-wrap"}, href=True)
         # for a in all_a:

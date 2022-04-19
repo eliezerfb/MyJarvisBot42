@@ -33,6 +33,39 @@ url_hornC4 = "https://integram.org/webhook/"+config('WEBHOOK_C4')
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
+
+try:
+    print('SEFAZ PE')
+    site = "https://www.sefaz.pe.gov.br/Servicos/Nota-Fiscal-de-Consumidor-Eletronica/Paginas/Avisos-NFC-e.aspx"
+    req = Request(site,headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
+
+    noticias_relacao = soup.find_all("div", attrs={"class":"article article-body"})
+
+    for noticia in noticias_relacao:
+        all_strong = noticia.find_all("strong")
+        for s in all_strong:
+            if len(s.text.strip()) <= 12:
+                continue
+            titulo = print(s.text.strip())   
+            
+            if exists_reported(titulo):
+                continue
+
+            url = site
+                        
+            data = {"text": f'{titulo}\n{url}\n'}
+
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
+
+
+except Exception as e:
+    print('Erro SEFAZ PE - ', e)
+
+
+
 try:
     ##### Monitor data tabela IBPT - github ######
     sites_monitor = [{'site': "https://github.com/frones/ACBr/tree/master/Exemplos/ACBrTCP/ACBrIBPTax/tabela", 'doc':'Tabela IBPT'}]
