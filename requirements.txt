@@ -15,5 +15,5 @@ dj_static==0.0.6
 gunicorn
 psycopg2-binary
 beautifulsoup4==4.9.1
-
+telepot==12.7
 
