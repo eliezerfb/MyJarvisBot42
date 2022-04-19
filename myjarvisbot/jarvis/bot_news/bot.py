@@ -190,19 +190,6 @@ for site in sites_monitor:
         time.sleep(5.0)
 
 
-# issue_data = {
-#     "name": titulo,
-#     "body": conteudo,
-# }
-
-# github_hdr = {
-#     'Authorization': 'token '+GITHUB_TOKEN,
-#     'User-Agent': 'Awesome-Octocat-App',
-#     'Accept': 'application/vnd.github.inertia-preview+json'
-# }
-# card = r.post(url_github, json=issue_data, headers=github_hdr)
-# print(card)
-
 
 ######  RADIO RURAL   #######
 try:
@@ -269,21 +256,6 @@ try:
 
         time.sleep(5.0)
         
-
-    # for noticia in noticias_relacao:
-        # titulo = noticia.find("div", {"class": "blog-title"}).text.strip()
-        # if exists_reported(titulo):
-        #     continue
-        
-        # add_title(titulo)
-
-        # conteudo = noticia.find("div", {"class": "blog-content"}).text.strip()
-        # url = noticia.find('a', href=True)['href']
-
-        # data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-        # print(data)
-        # r.post(url_horn, json=data, headers=headers)
-        # time.sleep(5.0)
 
 except Exception as e:
     print('Erro Atual - ', e)
