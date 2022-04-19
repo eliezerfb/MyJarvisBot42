@@ -48,7 +48,7 @@ try:
         for s in all_strong:
             if len(s.text.strip()) <= 12:
                 continue
-            titulo = print(s.text.strip())   
+            titulo = s.text.strip()
             
             if exists_reported(titulo):
                 continue
@@ -56,6 +56,8 @@ try:
             url = site
                         
             data = {"text": f'{titulo}\n{url}\n'}
+
+            print(data)
 
             r.post(url_hornC4, json=data, headers=headers)
             time.sleep(5.0)
