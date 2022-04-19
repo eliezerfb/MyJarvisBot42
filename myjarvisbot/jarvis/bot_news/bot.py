@@ -263,7 +263,10 @@ try:
 
         data = {"text": f'{titulo}\n{url}\n'}
         print(data)
-        # r.post(url_horn, json=data, headers=headers)
+
+        if not(titulo.startswith('Nota de falecimento')):
+            r.post(url_horn, json=data, headers=headers)
+
         time.sleep(5.0)
         
 
