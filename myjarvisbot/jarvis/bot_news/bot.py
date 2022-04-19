@@ -53,13 +53,15 @@ try:
             if exists_reported(titulo):
                 continue
 
+            add_title(titulo)
+
             url = site
                         
             data = {"text": f'{titulo}\n{url}\n'}
 
             print(data)
 
-            r.post(url_hornC4, json=data, headers=headers)
+            # r.post(url_hornC4, json=data, headers=headers)
             time.sleep(5.0)
 
 
