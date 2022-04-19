@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from decouple import config
 import json
 import requests as r
-import rows
+# import rows
 from http.cookiejar import CookieJar
 
 
