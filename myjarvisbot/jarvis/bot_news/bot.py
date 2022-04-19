@@ -259,6 +259,8 @@ try:
         if exists_reported(titulo):
           continue
 
+        add_title(titulo)
+
         data = {"text": f'{titulo}\n{url}\n'}
         print(data)
         # r.post(url_horn, json=data, headers=headers)
