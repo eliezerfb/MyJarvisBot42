@@ -205,58 +205,80 @@ for site in sites_monitor:
 
 
 ######  RADIO RURAL   #######
-print('Rádio Rural')
-site = "http://www.radiorural.com.br/noticias/"
-hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
-req = Request(site, headers=hdr)
-page = urlopen(req)
-soup = BeautifulSoup(page, features="html.parser")
+try:
+    print('Rádio Rural')
+    site = "http://www.radiorural.com.br/noticias/"
+    hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+    req = Request(site, headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
 
 
-noticias_relacao = soup.find_all("div", attrs={"class":"box_noticias_relacao"})
+    noticias_relacao = soup.find_all("div", attrs={"class":"box_noticias_relacao"})
 
-for noticia in noticias_relacao:
-    titulo = noticia.find("div", {"class": "linha_titulo"}).text.strip()
-    if exists_reported(titulo):
-        continue
-    
-    add_title(titulo)
+    for noticia in noticias_relacao:
+        titulo = noticia.find("div", {"class": "linha_titulo"}).text.strip()
+        if exists_reported(titulo):
+            continue
+        
+        add_title(titulo)
 
-    conteudo = noticia.find("div", {"class": "conteudo"}).text.strip()
-    url = noticia.find('a', href=True)['href']
-    url = f'http://www.radiorural.com.br/{url}'
+        conteudo = noticia.find("div", {"class": "conteudo"}).text.strip()
+        url = noticia.find('a', href=True)['href']
+        url = f'http://www.radiorural.com.br/{url}'
 
-    data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-    print(data)
-    r.post(url_horn, json=data, headers=headers)
-    time.sleep(5.0)
+        data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+        print(data)
+        r.post(url_horn, json=data, headers=headers)
+        time.sleep(5.0)
+except Exception as e:
+    print('Erro Rural - ', e)        
 
 
 ######  ATUAL FM   #######
-print('Rádio Atual')
-site= "https://www.atualfm.com.br/site/category/ultimas-noticias/"
-hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
-req = Request(site,headers=hdr)
-page = urlopen(req)
-soup = BeautifulSoup(page, features="html.parser")
+try:
+    print('Rádio Atual')
+    site= "https://atualfm.com.br/tdb_templates/category-template-week-pro/"
+    hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+    req = Request(site,headers=hdr)
+    page = urlopen(req)
+    soup = BeautifulSoup(page, features="html.parser")
 
 
-noticias_relacao = soup.find_all("div", attrs={"class":"post-area"})
+    noticias_relacao = soup.find_all("div", attrs={"class":"td-module-container td-category-pos-above"})
 
 
-for noticia in noticias_relacao:
-    titulo = noticia.find("div", {"class": "blog-title"}).text.strip()
-    if exists_reported(titulo):
-        continue
-    
-    add_title(titulo)
+    for noticia in noticias_relacao:
+        all_h = noticia.find_all("h3", attrs={"class":"entry-title td-module-title"})
+        for h in all_h:
+            titulo = h.text.strip()
+            continue
+        conteudo = ''
 
-    conteudo = noticia.find("div", {"class": "blog-content"}).text.strip()
-    url = noticia.find('a', href=True)['href']
+        url = noticia.find('a', href=True)['href']
+        if exists_reported(titulo):
+          continue
 
-    data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-    print(data)
-    r.post(url_horn, json=data, headers=headers)
-    time.sleep(5.0)
+        data = {"text": f'{titulo}\n{url}\n'}
+        print(data)
+        # r.post(url_horn, json=data, headers=headers)
+        time.sleep(5.0)
+        
 
+    # for noticia in noticias_relacao:
+        # titulo = noticia.find("div", {"class": "blog-title"}).text.strip()
+        # if exists_reported(titulo):
+        #     continue
+        
+        # add_title(titulo)
 
+        # conteudo = noticia.find("div", {"class": "blog-content"}).text.strip()
+        # url = noticia.find('a', href=True)['href']
+
+        # data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+        # print(data)
+        # r.post(url_horn, json=data, headers=headers)
+        # time.sleep(5.0)
+
+except Exception as e:
+    print('Erro Atual - ', e)
