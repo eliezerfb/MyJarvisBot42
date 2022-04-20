@@ -67,6 +67,7 @@ try:
 
 except Exception as e:
     print('Erro NFC-e PE - ', e)
+    pass
 
 
 
@@ -105,7 +106,8 @@ try:
             time.sleep(5.0)
 
 except Exception as e:
-    print('Erro Tabela IBPT - ', e)            
+    print('Erro Tabela IBPT - ', e)
+    pass           
 
 
 ##### Monitor NFC-e SC ######
@@ -144,6 +146,7 @@ try:
 
 except Exception as e:
     print('Erro NFCe SC - ', e)
+    pass
 
 
 ##### Monitor SEFAZ ######
@@ -179,6 +182,7 @@ try:
 
 except Exception as e:
     print('Erro CTe - ', e)
+    pass
 
 
 try:
@@ -215,6 +219,7 @@ try:
 
 except Exception as e:
     print('Erro NFe - ', e)
+    pass
 
 
 try:
@@ -254,7 +259,8 @@ try:
 
 except Exception as e:
     print('Erro NFC-e SE - ', e)
-    
+    pass
+
 
 
 try:
@@ -292,6 +298,7 @@ try:
 
 except Exception as e:
     print('Erro NFCe MS - ', e)
+    pass
 
 
 
@@ -325,6 +332,7 @@ try:
 
 except Exception as e:
     print('Erro MDF-e - ', e)
+    pass
 
 
 
@@ -356,7 +364,8 @@ try:
         r.post(url_horn, json=data, headers=headers)
         time.sleep(5.0)
 except Exception as e:
-    print('Erro Rural - ', e)        
+    print('Erro Rural - ', e)
+    pass
 
 
 ######  ATUAL FM   #######
@@ -396,3 +405,4 @@ try:
 
 except Exception as e:
     print('Erro Atual - ', e)
+    pass
