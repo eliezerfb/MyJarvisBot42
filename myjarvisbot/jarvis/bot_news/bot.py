@@ -216,43 +216,43 @@ except Exception as e:
     print('Erro NFe - ', e)
 
 
-try:
-    sites_monitor = [
-                    {'site': "http://www.nfce.se.gov.br/portal/portalNoticias.jsp?jsp=barra-menu/documentos/notasTecnicas.htm", 'doc':'NFCe - SE'},        
-                    ]
+# try:
+#     sites_monitor = [
+#                     {'site': "http://www.nfce.se.gov.br/portal/portalNoticias.jsp?jsp=barra-menu/documentos/notasTecnicas.htm", 'doc':'NFCe - SE'},        
+#                     ]
     
-    for site in sites_monitor:
-        print(site['doc'])
-        cj = CookieJar()
-        req = Request(site['site'], headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0'})
-        page = urlopen(req)
-        soup = BeautifulSoup(page.read(), features="html.parser")
+#     for site in sites_monitor:
+#         print(site['doc'])
+#         cj = CookieJar()
+#         req = Request(site['site'], headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0'})
+#         page = urlopen(req)
+#         soup = BeautifulSoup(page.read(), features="html.parser")
         
-        noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
+#         noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
 
-        for noticia in noticias_relacao:
-            all_p = noticia.find_all("p")
-            for p in all_p:
-                titulo = site['doc']+' '+p.text.strip()
-                titulo = titulo[0:100]
+#         for noticia in noticias_relacao:
+#             all_p = noticia.find_all("p")
+#             for p in all_p:
+#                 titulo = site['doc']+' '+p.text.strip()
+#                 titulo = titulo[0:100]
 
-                if exists_reported(titulo):
-                    continue
+#                 if exists_reported(titulo):
+#                     continue
 
-                add_title(titulo)
+#                 add_title(titulo)
 
-                print(titulo)
+#                 print(titulo)
 
-                url = site['site']
+#                 url = site['site']
 
-                data = {"text": f'{titulo}\n{url}\n'}
+#                 data = {"text": f'{titulo}\n{url}\n'}
 
-                r.post(url_hornC4, json=data, headers=headers)
-                time.sleep(5.0)
+#                 r.post(url_hornC4, json=data, headers=headers)
+#                 time.sleep(5.0)
 
 
-except Exception as e:
-    print('Erro NFCe SE - ', e) 
+# except Exception as e:
+#     print('Erro NFCe SE - ', e) 
 
 
 
