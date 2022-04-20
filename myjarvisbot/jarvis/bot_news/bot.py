@@ -35,7 +35,7 @@ headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
 
 try:
-    print('SEFAZ PE')
+    print('NFC-e PE')
     site = "https://www.sefaz.pe.gov.br/Servicos/Nota-Fiscal-de-Consumidor-Eletronica/Paginas/Avisos-NFC-e.aspx"
     req = Request(site,headers=hdr)
     page = urlopen(req)
@@ -48,7 +48,7 @@ try:
         for s in all_strong:
             if len(s.text.strip()) <= 12:
                 continue
-            titulo = s.text.strip()
+            titulo = 'NFC-e PE '+s.text.strip()
             
             if exists_reported(titulo):
                 continue
@@ -66,7 +66,7 @@ try:
 
 
 except Exception as e:
-    print('Erro SEFAZ PE - ', e)
+    print('Erro NFC-e PE - ', e)
 
 
 
@@ -106,6 +106,7 @@ try:
 
 except Exception as e:
     print('Erro Tabela IBPT - ', e)            
+
 
 ##### Monitor NFC-e SC ######
 try:
