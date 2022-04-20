@@ -229,7 +229,7 @@ try:
     
     for site in sites_monitor:
         print(site['doc'])
-        req = Request(site['site'], headers=hdr)
+        req = Request(site['site'], headers=hdr, timeout=15)
         page = urlopen(req)
         soup = BeautifulSoup(page, features="html.parser")
 
