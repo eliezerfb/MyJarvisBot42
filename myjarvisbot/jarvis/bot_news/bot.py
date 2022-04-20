@@ -229,8 +229,8 @@ try:
     
     for site in sites_monitor:
         print(site['doc'])
-        req = Request(site['site'], headers=hdr, timeout=15)
-        page = urlopen(req)
+        req = Request(site['site'], headers=hdr)
+        page = urlopen(req, timeout = 15)
         soup = BeautifulSoup(page, features="html.parser")
 
         noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoConteudo"})

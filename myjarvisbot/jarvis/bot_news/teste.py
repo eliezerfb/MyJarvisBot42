@@ -17,8 +17,8 @@ try:
     for site in sites_monitor:
         print(site['doc'])
         print('teste')
-        req = Request(site['site'], headers=hdr, timeout=15)
-        page = urlopen(req)
+        req = Request(site['site'], headers=hdr)
+        page = urlopen(req, timeout = 15)
         soup = BeautifulSoup(page, features="html.parser")
 
         noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoConteudo"})
@@ -30,8 +30,8 @@ try:
                     continue
                 titulo = site['doc'] + ' ' + span.text.strip()
 
-                if exists_reported(titulo):
-                    continue                
+                # if exists_reported(titulo):
+                #     continue                
 
                 conteudo = p.text.strip()
 
@@ -40,8 +40,8 @@ try:
                 data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
                 print(data)
 
-                add_title(titulo)
-                r.post(url_hornC4, json=data, headers=headers)
+                # add_title(titulo)
+                # r.post(url_hornC4, json=data, headers=headers)
 
                 time.sleep(5.0)
 
