@@ -255,6 +255,44 @@ except Exception as e:
 #     print('Erro NFCe SE - ', e) 
 
 
+try:
+    sites_monitor = [
+                    {'site': "https://www.nfce.ms.gov.br/noticias/", 'doc':'NFC-e MS'}
+                    ]
+    
+    for site in sites_monitor:
+        print(site['doc'])
+        req = Request(site['site'], headers=hdr)
+        page = urlopen(req)
+        soup = BeautifulSoup(page, features="html.parser")
+
+        noticias_relacao = soup.find_all("div", attrs={"class": "container"})
+        for noticia in noticias_relacao:
+            all_box = noticia.find_all("div", attrs={"class": "noticiaBox"})
+            for b in all_box:
+                titulo = b.find("a").text.strip()
+                conteudo = b.find("p").text.strip()
+                url = site['site']
+        
+                if exists_reported(titulo):
+                    continue
+
+                titulo = site['doc'] + ' ' + titulo
+
+                data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
+
+                add_title(titulo)
+
+                print(data)
+
+                r.post(url_hornC4, json=data, headers=headers)
+                time.sleep(5.0)
+
+except Exception as e:
+    print('Erro NFCe MS - ', e)
+
+
+
 
 try:
     sites_monitor = [{'site':'https://dfe-portal.svrs.rs.gov.br/Mdfe/Documentos', 'doc':'MDF-e'},
