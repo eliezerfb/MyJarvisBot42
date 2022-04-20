@@ -11,7 +11,7 @@ hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.
 
 try:
     sites_monitor = [
-                    {'site': "https://www.nfce.ms.gov.br/noticias/", 'doc':'NFC-e MS'}
+                    {'site': "http://www.nfce.se.gov.br/portal/portalNoticias.jsp?jsp=barra-menu/documentos/notasTecnicas.htm", 'doc':'NFC-e SE'}
                     ]
     
     for site in sites_monitor:
@@ -20,31 +20,32 @@ try:
         page = urlopen(req)
         soup = BeautifulSoup(page, features="html.parser")
 
-        noticias_relacao = soup.find_all("div", attrs={"class": "container"})
+        noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoConteudo"})
         for noticia in noticias_relacao:
-            all_box = noticia.find_all("div", attrs={"class": "noticiaBox"})
-            for b in all_box:
-                titulo = b.find("a").text.strip()
-                conteudo = b.find("p").text.strip()
-                # titulo = p.text.strip()
-                url = site['site']
-        
-                # if exists_reported(titulo):
-                    # continue
+            all_p = noticia.find_all("p")
+            for p in all_p:
+                span = p.find("span", attrs={"class": "tituloConteudo"})
+                if span == None:
+                    continue
+                titulo = site['doc'] + ' ' + span.text.strip()
 
-                titulo = site['doc'] + ' ' + titulo
+                if exists_reported(titulo):
+                    continue                
+
+                conteudo = p.text.strip()
+
+                url = site['site']
 
                 data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
-
-                # add_title(titulo)
-
                 print(data)
 
-                # r.post(url_hornC4, json=data, headers=headers)
-                # time.sleep(5.0)
+                add_title(titulo)
+                r.post(url_hornC4, json=data, headers=headers)
+
+                time.sleep(5.0)
 
 except Exception as e:
-    print('Erro NFe - ', e)
+    print('Erro NFC-e SE - ', e)
 
 
 
