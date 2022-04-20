@@ -184,8 +184,9 @@ try:
     sites_monitor = [
                     {'site': "https://www.nfe.fazenda.gov.br/portal/informe.aspx?ehCTG=false", 'doc':'NF-e'}
                     ]
-    print('NF-e')
+    
     for site in sites_monitor:
+        print(site['doc'])
         cj = CookieJar()
         opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
         req = Request(site['site'], None, {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3','Accept-Encoding': 'gzip, deflate, sdch','Accept-Language': 'en-US,en;q=0.8','Connection': 'keep-alive'})
@@ -198,10 +199,13 @@ try:
             for p in all_p:
                 titulo = p.text.strip()
                 url = site['site']
-                data = {"text": f'{titulo}\n{url}\n'}
         
                 if exists_reported(titulo):
                     continue
+
+                titulo = site['doc'] + ' ' + titulo
+
+                data = {"text": f'{titulo}\n{url}\n'}
 
                 add_title(titulo)
 
@@ -209,7 +213,41 @@ try:
                 time.sleep(5.0)
 
 except Exception as e:
-    print('Erro NFe - ', e)            
+    print('Erro NFe - ', e)
+
+
+try:
+    sites_monitor = [
+                    {'site': "http://www.nfce.se.gov.br/portal/portalNoticias.jsp?jsp=barra-menu/documentos/notasTecnicas.htm", 'doc':'NFCe - SE'},        
+                    ]
+    
+    for site in sites_monitor:
+        print(site['doc'])
+        cj = CookieJar()
+        req = Request(site['site'], headers={'User-Agent': 'Mozilla/5.0'})
+        page = urlopen(req)
+        soup = BeautifulSoup(page.read(), features="html.parser")
+        
+        noticias_relacao = soup.find_all("div", attrs={"class": "indentacaoNormal"})
+
+        for noticia in noticias_relacao:
+            all_p = noticia.find_all("p")
+            for p in all_p:
+                titulo = site['doc']+' '+p.text.strip()
+                titulo = titulo[0:100]
+
+                if exists_reported(titulo):
+                    continue
+
+                data = {"text": f'{titulo}\n{url}\n'}
+
+                r.post(url_hornC4, json=data, headers=headers)
+                time.sleep(5.0)
+
+
+except Exception as e:
+    print('Erro NFe - ', e) 
+
 
 
 try:
