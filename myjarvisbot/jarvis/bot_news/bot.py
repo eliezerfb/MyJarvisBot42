@@ -279,13 +279,13 @@ try:
             all_box = noticia.find_all("div", attrs={"class": "noticiaBox"})
             for b in all_box:
                 titulo = b.find("a").text.strip()
+                titulo = site['doc'] + ' ' + titulo
+
                 conteudo = b.find("p").text.strip()
                 url = site['site']
         
                 if exists_reported(titulo):
                     continue
-
-                titulo = site['doc'] + ' ' + titulo
 
                 data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
 
