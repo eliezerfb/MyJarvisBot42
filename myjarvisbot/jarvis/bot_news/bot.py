@@ -241,6 +241,10 @@ try:
 
                 add_title(titulo)
 
+                print(titulo)
+
+                url = site['site']
+
                 data = {"text": f'{titulo}\n{url}\n'}
 
                 r.post(url_hornC4, json=data, headers=headers)
@@ -248,7 +252,7 @@ try:
 
 
 except Exception as e:
-    print('Erro NFe - ', e) 
+    print('Erro NFCe SE - ', e) 
 
 
 
