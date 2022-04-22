@@ -302,6 +302,40 @@ except Exception as e:
     pass
 
 
+try:
+    sites_monitor = [
+                    {'site': "https://www.economia.go.gov.br/receita-estadual/documentos-fiscais.html", 'doc':'NF-e GO'}
+                    ]
+    
+    for site in sites_monitor:
+        print(site['doc'])
+        req = Request(site['site'], headers=hdr)
+        page = urlopen(req, timeout = 15)
+        soup = BeautifulSoup(page, features="html.parser")
+
+        noticias_relacao = soup.find_all("ul", attrs={"class": "inner"})
+        for noticia in noticias_relacao:
+            all_li = noticia.find_all("li")
+            for li in all_li:
+                titulo = site['doc'] + ' ' + li.text.strip()
+
+                if exists_reported(titulo):
+                    continue                
+
+                url = site['site']
+
+                data = {"text": f'{titulo}\n{url}\n'}
+                print(data)
+
+                add_title(titulo)
+                r.post(url_hornC4, json=data, headers=headers)
+
+                time.sleep(5.0)
+
+except Exception as e:
+    print('Erro NF-e GO - ', e)
+    pass
+
 
 
 try:
