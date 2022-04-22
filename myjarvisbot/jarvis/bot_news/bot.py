@@ -265,6 +265,47 @@ except Exception as e:
 
 try:
     sites_monitor = [
+                    {'site': "https://receita.fazenda.rs.gov.br/lista/762/avisos", 'doc':'NFC-e RS'}
+                    ]
+    
+    for site in sites_monitor:
+        print(site['doc'])
+        cj = CookieJar()
+        opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+        req = Request(site['site'], None, hdr)
+        page = opener.open(req)
+        soup = BeautifulSoup(page.read(), features="html.parser", from_encoding="iso-8859-1")
+        
+        noticias_relacao = soup.find_all("ul", attrs={"class": "cConteudoListaSimples"})
+        print(noticias_relacao)
+     
+
+        for noticia in noticias_relacao:
+            all_li = noticia.find_all("li")
+            for li in all_li:
+                titulo = site['doc']+' '+li.text.strip()
+                url = site['site']
+        
+                if exists_reported(titulo):
+                    continue
+
+                data = {"text": f'{titulo}\n{url}\n'}
+
+                add_title(titulo)
+
+                r.post(url_hornC4, json=data, headers=headers)
+                print(data)
+                time.sleep(5.0)
+
+except Exception as e:
+    print('Erro NFe - ', e)
+    pass
+
+
+
+
+try:
+    sites_monitor = [
                     {'site': "https://www.nfce.ms.gov.br/noticias/", 'doc':'NFC-e MS'}
                     ]
     
