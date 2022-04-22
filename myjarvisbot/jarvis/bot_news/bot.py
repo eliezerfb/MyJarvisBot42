@@ -7,6 +7,7 @@ from io import BytesIO
 import urllib
 from urllib.request import Request, urlopen
 import time
+from dateutil.parser import parse
 
 from bs4 import BeautifulSoup
 from decouple import config
@@ -27,11 +28,29 @@ def add_title(title):
     news = NewsReported(title=title[:100])
     news.save()
 
+
+def is_date(string, fuzzy=False):
+    """
+    Return whether the string can be interpreted as a date.
+
+    :param string: str, string to check for date
+    :param fuzzy: bool, ignore unknown tokens in string if True
+    """
+    try: 
+        parse(string, fuzzy=fuzzy)
+        return True
+
+    except ValueError:
+        return False
+
+
+
 hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 url_horn = "https://integram.org/webhook/"+config('WEBHOOK')
 url_hornC4 = "https://integram.org/webhook/"+config('WEBHOOK_C4')
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
 
 
 try:
@@ -335,6 +354,54 @@ try:
 except Exception as e:
     print('Erro NF-e GO - ', e)
     pass
+
+
+try:
+    sites_monitor = [
+                    {'site': "https://www.sefaz.pe.gov.br/Servicos/nota-fiscal-eletronica/Paginas/Avisos0808-6156.aspx", 'doc':'NF-e PE'}
+                    ]
+    
+    for site in sites_monitor:
+        print(site['doc'])
+        req = Request(site['site'], headers=hdr)
+        page = urlopen(req, timeout = 15)
+        soup = BeautifulSoup(page, features="html.parser")
+
+        next_is_title = False
+        news_date = ''
+
+        noticias_relacao = soup.find_all("div", attrs={"class": "article article-body"})
+        for noticia in noticias_relacao:
+            all_strong = noticia.find_all("strong")
+            for s in all_strong:
+                titulo = s.text.strip().replace(u'\u200b', '')
+
+                if (len(titulo) >= 10) and is_date(titulo):
+                    next_is_title = True
+                    news_date = titulo
+                    continue
+
+                if not next_is_title:
+                    continue
+
+                next_is_title = False
+                titulo = site['doc'] + ' ' + news_date + ' '+ titulo
+
+                if exists_reported(titulo):
+                    continue
+              
+                url = site['site']
+                data = {"text": f'{titulo}\n{url}\n'}
+                print(data)
+
+                add_title(titulo)
+                r.post(url_hornC4, json=data, headers=headers)
+
+                time.sleep(5.0)
+                    
+
+except Exception as e:
+    print('Erro NF-e PE - ', e)
 
 
 
