@@ -243,6 +243,43 @@ except Exception as e:
 
 try:
     sites_monitor = [
+                    {'site': "http://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=04BIflQt1aY=", 'doc':'NT NF-e'},
+                    ]
+    
+    for site in sites_monitor:
+        print(site['doc'])
+        cj = CookieJar()
+        opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+        req = Request(site['site'], None, {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8','Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3','Accept-Encoding': 'gzip, deflate, sdch','Accept-Language': 'en-US,en;q=0.8','Connection': 'keep-alive'})
+        page = opener.open(req)
+        soup = BeautifulSoup(page.read(), features="html.parser")
+
+        noticias_relacao = soup.find_all("span", attrs={"class": "tituloConteudo"})
+        for noticia in noticias_relacao:
+            titulo = noticia.text.strip()
+            titulo = site['doc'] + ' ' + titulo
+            url = site['site']
+
+            if exists_reported(titulo):
+                continue
+
+            data = {"text": f'{titulo}\n{url}\n'}
+
+            add_title(titulo)
+            print(data)
+
+            # r.post(url_hornC4, json=data, headers=headers)
+            # time.sleep(5.0)
+
+
+except Exception as e:
+    print('Erro NFe - ', e)
+    pass
+
+
+
+try:
+    sites_monitor = [
                     {'site': "http://www.nfce.se.gov.br/portal/portalNoticias.jsp?jsp=barra-menu/documentos/notasTecnicas.htm", 'doc':'NFC-e SE'}
                     ]
     
@@ -398,7 +435,7 @@ try:
                 r.post(url_hornC4, json=data, headers=headers)
 
                 time.sleep(5.0)
-                    
+
 
 except Exception as e:
     print('Erro NF-e PE - ', e)
