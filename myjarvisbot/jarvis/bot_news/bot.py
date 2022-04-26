@@ -268,8 +268,8 @@ try:
             add_title(titulo)
             print(data)
 
-            # r.post(url_hornC4, json=data, headers=headers)
-            # time.sleep(5.0)
+            r.post(url_hornC4, json=data, headers=headers)
+            time.sleep(5.0)
 
 
 except Exception as e:
