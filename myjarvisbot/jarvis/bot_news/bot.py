@@ -221,13 +221,11 @@ try:
         for noticia in noticias_relacao:
             all_p = noticia.find_all("p")
             for p in all_p:
-                titulo = p.text.strip()
+                titulo = site['doc']+' '+p.text.strip()
                 url = site['site']
         
                 if exists_reported(titulo):
                     continue
-
-                titulo = site['doc'] + ' ' + titulo
 
                 data = {"text": f'{titulo}\n{url}\n'}
 
