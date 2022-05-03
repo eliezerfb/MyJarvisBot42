@@ -80,7 +80,7 @@ try:
 
             print(data)
 
-            # r.post(url_hornC4, json=data, headers=headers)
+            r.post(url_hornC4, json=data, headers=headers)
             time.sleep(5.0)
 
 
@@ -121,7 +121,7 @@ try:
 
             add_title(titulo)
 
-            # r.post(url_hornC4, json=data, headers=headers)
+            r.post(url_hornC4, json=data, headers=headers)
             time.sleep(5.0)
 
 except Exception as e:
@@ -160,7 +160,7 @@ try:
 
                 print(data)
 
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
                 time.sleep(5.0)
 
 except Exception as e:
@@ -196,7 +196,7 @@ try:
 
                 add_title(titulo)
 
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
                 time.sleep(5.0)
 
 except Exception as e:
@@ -233,7 +233,7 @@ try:
 
                 add_title(titulo)
 
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
                 time.sleep(5.0)
 
 except Exception as e:
@@ -268,7 +268,7 @@ try:
             add_title(titulo)
             print(data)
 
-            # r.post(url_hornC4, json=data, headers=headers)
+            r.post(url_hornC4, json=data, headers=headers)
             time.sleep(5.0)
 
 
@@ -309,7 +309,7 @@ try:
                 print(data)
 
                 add_title(titulo)
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
 
                 time.sleep(5.0)
 
@@ -349,7 +349,7 @@ try:
 
                 add_title(titulo)
 
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
                 print(data)
                 time.sleep(5.0)
 
@@ -384,7 +384,7 @@ try:
                 print(data)
 
                 add_title(titulo)
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
 
                 time.sleep(5.0)
 
@@ -432,7 +432,7 @@ try:
                 print(data)
 
                 add_title(titulo)
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
 
                 time.sleep(5.0)
 
@@ -472,7 +472,7 @@ try:
 
                 print(data)
 
-                # r.post(url_hornC4, json=data, headers=headers)
+                r.post(url_hornC4, json=data, headers=headers)
                 time.sleep(5.0)
 
 except Exception as e:
@@ -506,7 +506,7 @@ try:
 
             add_title(titulo)
 
-            # r.post(url_hornC4, json=data, headers=headers)
+            r.post(url_hornC4, json=data, headers=headers)
             time.sleep(5.0)
 
 except Exception as e:
@@ -540,7 +540,7 @@ try:
 
         data = {"text": f'{titulo}\n{conteudo}\n{url}\n'}
         print(data)
-        # r.post(url_horn, json=data, headers=headers)
+        r.post(url_horn, json=data, headers=headers)
         time.sleep(5.0)
 except Exception as e:
     print('Erro Rural - ', e)
@@ -576,8 +576,8 @@ try:
         data = {"text": f'{titulo}\n{url}\n'}
         print(data)
 
-        # if not(titulo.startswith('Nota de falecimento')):
-            # r.post(url_horn, json=data, headers=headers)
+        if not(titulo.startswith('Nota de falecimento')):
+            r.post(url_horn, json=data, headers=headers)
 
         time.sleep(5.0)
         
