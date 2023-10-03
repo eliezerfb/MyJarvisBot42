@@ -9,7 +9,7 @@ python-dateutil==2.7.3
 python-decouple==3.1
 pytz==2018.5
 requests>=2.20.0
-urllib3==1.26.5
+urllib3==1.26.17
 django-test-without-migrations==0.6
 dj_static==0.0.6
 gunicorn
